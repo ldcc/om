@@ -8,7 +8,7 @@ public class DTUser<O extends DTO> extends DTM<O> {
         super(tClass, base);
     }
 
-    public static final DTM<User> dtm = new DTUser<>(User.class, User.USER_BASE);
+    private static final DTM<User> dtm = new DTUser<>(User.class, User.USER_BASE);
 
     public static DTM<User> getDtm() {
         return dtm;
