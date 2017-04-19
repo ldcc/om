@@ -27,13 +27,18 @@ public class DBManager {
         return dbManager;
     }
 
+
+    /**
+     * @param dtm A tool for building object type of O
+     * @param <O> As you can see, O extend from DTO
+     */
+
     /**
      * Getting object with single column and value
-     * @param dtm Build a object and then cast to O
+     *
      * @param column A column name from your database
-     * @param value A data value from that column
-     * @param <O> As you can see, O extend from DTO
-     * @return
+     * @param value  A data value from that column
+     * @return Object cast to O and then return that
      */
     public <O extends DTO> O getObj(DTM<O> dtm, String column, String value) {
         try (Connection conn = DriverManager.getConnection(DBURL, USERNAME, PASSWORD)) {
@@ -46,6 +51,11 @@ public class DBManager {
         }
     }
 
+    /**
+     * Getting All object
+     *
+     * @return All Object will add to List<O>, but no filter
+     */
     public <O extends DTO> List<O> getAll(DTM<O> dtm) {
         try (Connection conn = DriverManager.getConnection(DBURL, USERNAME, PASSWORD)) {
             try (Statement statement = conn.createStatement()) {
@@ -57,6 +67,14 @@ public class DBManager {
         }
     }
 
+    /**
+     * @param o just a object you wanted to do something
+     * @return return the action whether success
+     */
+
+    /**
+     * Insert o under beneath the last row with dtm from database
+     */
     public <O extends DTO> boolean addObj(DTM<O> dtm, O o) {
         try (Connection conn = DriverManager.getConnection(DBURL, USERNAME, PASSWORD)) {
             try (Statement statement = conn.createStatement()) {
@@ -68,6 +86,9 @@ public class DBManager {
         }
     }
 
+    /**
+     * update o with dtm from database
+     */
     public <O extends DTO> boolean update(DTM<O> dtm, O o) {
         try (Connection conn = DriverManager.getConnection(DBURL, USERNAME, PASSWORD)) {
             try (Statement statement = conn.createStatement()) {
@@ -79,6 +100,9 @@ public class DBManager {
         }
     }
 
+    /**
+     * delete o(a whole row) with dtm from database
+     */
     public <O extends DTO> boolean delete(DTM<O> dtm, O o) {
         try (Connection conn = DriverManager.getConnection(DBURL, USERNAME, PASSWORD)) {
             try (Statement statement = conn.createStatement()) {
