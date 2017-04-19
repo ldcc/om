@@ -16,6 +16,13 @@ public class DTO {
         this.map = map;
     }
 
+    /**
+     * Setting one of the date value
+     *
+     * @param column A column name from your database
+     * @param value  A data value from that column
+     * @param <O>    Source type of the value, it's been cast up before,just cast down again
+     */
     public <O> void setObj(String column, O value) {
         map.put(column, value);
     }
@@ -36,6 +43,13 @@ public class DTO {
         map.put(column, value);
     }
 
+    /**
+     * Getting one of the data value
+     *
+     * @param column A column name from your database
+     * @param <O>    Source type of the value, it's been cast up before,just cast down again
+     * @return Getting a data value from that column, return it
+     */
     public <O> O getObj(String column) {
         return (O) map.get(column);
     }
@@ -56,6 +70,13 @@ public class DTO {
         return (Boolean) map.get(column);
     }
 
+
+    /**
+     * Packaging the data value(value -> 'value')
+     *
+     * @param column A column name from your database
+     * @return The package value
+     */
     public String sqlStyle(String column) {
         Object o = map.get(column);
         if (o instanceof Boolean || o instanceof Integer || o instanceof Long) {
@@ -65,22 +86,49 @@ public class DTO {
         }
     }
 
+    /**
+     * Parse object to a insert statement of SQL
+     *
+     * @return Return parsed
+     */
     public String toInsertSQL() {
         return "(" + String.join(",", map.keySet()) + ")" +
                 "VALUES" +
                 "(" + map.keySet().stream().map(this::sqlStyle).collect(Collectors.joining(",")) + ");";
     }
 
+    /**
+     * Parse object to a update statement of SQL
+     *
+     * @return Return parsed
+     */
     public String toUpdateSQL() {
         return " SET " +
                 map.keySet().stream().map(s -> s + "=" + this.sqlStyle(s)).collect(Collectors.joining(",")) +
                 " WHERE " + ID + "=" + this.getObj(ID) + ";";
     }
 
+    /**
+     * Parse object to a delete statement of SQL
+     *
+     * @return Return parsed
+     */
     public String toDeleteSQL() {
-        return " WHERE " + ID + "=" + this.getObj(ID) + ";";
+        return " WHERE " + ID +
+                "=" +
+                this.getObj(ID) + ";";
     }
 
+    @Override
+    public String toString() {
+        return map.toString();
+    }
+
+    /**
+     * In accordance with the map getting hashcode of keys and values respective
+     *
+     * @return (keyCode add valueCode) * 31 is our hashcode
+     */
     @Override
     public int hashCode() {
         int keyCode = map.keySet().stream().map(String::hashCode).reduce(Integer::compareTo).orElse(0);
@@ -88,13 +136,14 @@ public class DTO {
         return (keyCode + valueCode) * 31;
     }
 
+    /**
+     * Judge objs whether equal, in accordance with the hashcode not by self
+     *
+     * @param obj Another object
+     * @return They hashcode is equals
+     */
     @Override
     public boolean equals(Object obj) {
         return obj.getClass().equals(this.getClass()) && this.hashCode() == obj.hashCode();
-    }
-
-    @Override
-    public String toString() {
-        return map.toString();
     }
 }
