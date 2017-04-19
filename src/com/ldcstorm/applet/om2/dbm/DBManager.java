@@ -42,7 +42,7 @@ public class DBManager {
      * @param <O>    As you can see, O extend from DTO
      * @return Object cast to O and then return that
      */
-    public <O extends DTO> O getObj(DTM<O> dtm, String column, String value) {
+    public <O extends DTO> O get(DTM<O> dtm, String column, String value) {
         try (Connection conn = DriverManager.getConnection(DBURL, USERNAME, PASSWORD)) {
             try (Statement statement = conn.createStatement()) {
                 return dtm.get(statement, column, value);
@@ -79,7 +79,7 @@ public class DBManager {
      * @param <O> As you can see, O extend from DTO
      * @return return the action whether success
      */
-    public <O extends DTO> boolean addObj(DTM<O> dtm, O o) {
+    public <O extends DTO> boolean add(DTM<O> dtm, O o) {
         try (Connection conn = DriverManager.getConnection(DBURL, USERNAME, PASSWORD)) {
             try (Statement statement = conn.createStatement()) {
                 return dtm.add(statement, o);
