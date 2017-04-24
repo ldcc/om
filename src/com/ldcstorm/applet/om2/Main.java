@@ -18,18 +18,39 @@ public class Main {
      * Sample
      */
     public static void main(String[] args) {
-        getSingle();
-        getAllProducts();
-        addNotice();
-        updateUser();
-        deleteNotice();
+        System.out.println("Hello Database");
+//        getSingle();
+//        getAllProducts();
+//        addNotice();
+//        updateUser();
+//        deleteNotice();
+
+//        System.out.println(testTry());
+    }
+
+    private static String testTry() {
+        try {
+            System.out.println("try");
+            return testSout();
+        } catch (Exception e) {
+            System.out.println("err");
+        } finally {
+            System.out.println("finally");
+            return "finally";
+        }
+    }
+
+    private static String testSout(){
+        System.out.println("sout");
+        System.out.println();
+        return "sout";
     }
 
     /**
      * getting single object
      */
     private static void getSingle() {
-        User user = DBManager.getDbManager().get(DTUser.getDtm(), ID, "2");
+        User user = DBManager.getSingleton().get(DTUser.getDtm(), ID, "2");
         System.out.println(user.getInt(User.ID));
         System.out.println(user.<String>getObj(User.USER_NAME));
     }
@@ -38,7 +59,7 @@ public class Main {
      * getting All object (A Object List)
      */
     private static void getAllProducts() {
-        List<Product> products = DBManager.getDbManager().getAll(DTProduct.getDtm());
+        List<Product> products = DBManager.getSingleton().getAll(DTProduct.getDtm());
         System.out.println(products);
     }
 
@@ -50,9 +71,9 @@ public class Main {
         String title = "勃勃勃勃勃勃勃勃";
         String content = "勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃";
         Date date = new Date(new java.util.Date().getTime());
-        String type = "雅馨新闻";
+        String type = "news ";
         Notice notice = new Notice(uid, title, content, date, type);
-        if (DBManager.getDbManager().add(DTNotice.getDtm(), notice)) {
+        if (DBManager.getSingleton().add(DTNotice.getDtm(), notice)) {
             System.out.println(notice);
         } else {
             System.out.println("Something wrong, can't insert data to database");
@@ -63,10 +84,10 @@ public class Main {
      * updating object
      */
     private static void updateUser() {
-        User user = DBManager.getDbManager().get(DTUser.getDtm(), ID, "2");
+        User user = DBManager.getSingleton().get(DTUser.getDtm(), ID, "2");
         user.setObj(User.USER_AUTH, true);
         System.out.println(
-                DBManager.getDbManager().update(DTUser.getDtm(), user) ? user : "Update failed"
+                DBManager.getSingleton().update(DTUser.getDtm(), user) ? user : "Update failed"
         );
     }
 
@@ -74,9 +95,9 @@ public class Main {
      * deleting object
      */
     private static void deleteNotice() {
-        Notice notice = DBManager.getDbManager().get(DTNotice.getDtm(), ID, "19");
+        Notice notice = DBManager.getSingleton().get(DTNotice.getDtm(), ID, "19");
         System.out.println(
-                DBManager.getDbManager().delete(DTNotice.getDtm(), notice) ? "Delete success" : "Delete failed"
+                DBManager.getSingleton().delete(DTNotice.getDtm(), notice) ? "Delete success" : "Delete failed"
         );
     }
 }
