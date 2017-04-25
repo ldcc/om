@@ -34,15 +34,16 @@ public class Main {
             return testSout();
         } catch (Exception e) {
             System.out.println("err");
+            return "return err";
         } finally {
             System.out.println("finally");
-            return "finally";
+            return "return fina";
         }
     }
 
     private static String testSout() {
         System.out.println("sout");
-        return "sout";
+        return "return sout";
     }
 
     /**
@@ -50,7 +51,8 @@ public class Main {
      */
     private static void getSingle() {
         User user = DBManager.getSingleton().get(DTUser.getDtm(), ID, "2");
-        System.out.println(user.getInt(User.ID));
+//        System.out.println(user.getInt(User.ID));
+        System.out.println(user.<Integer>getObj(User.ID));
         System.out.println(user.<String>getObj(User.USER_NAME));
     }
 

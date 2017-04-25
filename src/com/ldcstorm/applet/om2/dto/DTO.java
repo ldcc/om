@@ -28,18 +28,22 @@ public class DTO {
         map.put(column, value);
     }
 
+    @Deprecated
     public void setString(String column, String value) {
         map.put(column, value);
     }
 
+    @Deprecated
     public void setInt(String column, Integer value) {
         map.put(column, value);
     }
 
+    @Deprecated
     public void setDate(String column, Date value) {
         map.put(column, value);
     }
 
+    @Deprecated
     public void setBool(String column, Boolean value) {
         map.put(column, value);
     }
@@ -55,18 +59,22 @@ public class DTO {
         return (O) map.get(column);
     }
 
+    @Deprecated
     public String getString(String column) {
         return (String) map.get(column);
     }
 
+    @Deprecated
     public Integer getInt(String column) {
         return (Integer) map.get(column);
     }
 
+    @Deprecated
     public Date getDate(String column) {
         return (Date) map.get(column);
     }
 
+    @Deprecated
     public Boolean getBool(String column) {
         return (Boolean) map.get(column);
     }
