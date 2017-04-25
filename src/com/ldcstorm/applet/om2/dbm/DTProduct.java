@@ -8,14 +8,14 @@ import java.util.Collections;
 import java.util.List;
 
 public class DTProduct<O extends DTO> extends DTM<O> {
-    private DTProduct(Class<O> tClass, String base) {
-        super(tClass, base);
-    }
-
     private static final DTM<Product> dtm = new DTProduct<>(Product.class, Product.PRODUCT_BASE);
 
     public static DTM<Product> getDtm() {
         return dtm;
+    }
+
+    private DTProduct(Class<O> tClass, String base) {
+        super(tClass, base);
     }
 
     @Override

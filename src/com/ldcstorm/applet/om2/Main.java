@@ -21,7 +21,7 @@ public class Main {
         System.out.println("Hello Database");
 //        getSingle();
 //        getAllProducts();
-//        addNotice();
+        addNotice();
 //        updateUser();
 //        deleteNotice();
 
@@ -40,9 +40,8 @@ public class Main {
         }
     }
 
-    private static String testSout(){
+    private static String testSout() {
         System.out.println("sout");
-        System.out.println();
         return "sout";
     }
 
@@ -68,8 +67,8 @@ public class Main {
      */
     private static void addNotice() {
         int uid = 2;
-        String title = "勃勃勃勃勃勃勃勃";
-        String content = "勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃勃";
+        String title = "bobobobobobobobobobob";
+        String content = "bobobobobobobobobobobbobobobobobobobobobobbobobobobobobobobobobbobobobobobobobobobob";
         Date date = new Date(new java.util.Date().getTime());
         String type = "news ";
         Notice notice = new Notice(uid, title, content, date, type);

@@ -18,8 +18,8 @@ public class User extends DTO {
         this.map = map;
     }
 
-    public User(Integer id, String name, String password, Boolean auth, Date createTime) {
-        map.put(ID, id);
+    public User(String name, String password, Boolean auth, Date createTime) {
+        super();
         map.put(USER_NAME, name);
         map.put(USER_PASS, password);
         map.put(USER_AUTH, auth);

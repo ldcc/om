@@ -9,11 +9,12 @@ public class DTO {
     public static final String ID = "ID";
     public Map<String, Object> map = new HashMap<>();
 
-    public DTO() {
-    }
-
     public DTO(Map<String, Object> map) {
         this.map = map;
+    }
+
+    public DTO(Object[]... args) {
+        map.put(ID, 0);
     }
 
     /**
@@ -69,7 +70,6 @@ public class DTO {
     public Boolean getBool(String column) {
         return (Boolean) map.get(column);
     }
-
 
     /**
      * Packaging the data value(value -> 'value')

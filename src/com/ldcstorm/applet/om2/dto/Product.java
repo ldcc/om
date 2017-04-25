@@ -17,16 +17,12 @@ public class Product extends DTO {
 
     public static final List<String> imgList = Arrays.asList("/img/1-1.jpg", "/img/1-2.jpg", "/img/1-3.jpg", "/img/1-4.jpg", "/img/1-5.jpg");
 
-    public Product() {
-        super();
-    }
-
     public Product(Map<String, Object> map) {
-        this.map = map;
+        super(map);
     }
 
     public Product(String proName, String proInfo, String color, String origin, String style, String material) {
-        map.put(ID, 0);
+        super();
         map.put(PRO_NAME, proName);
         map.put(PRO_INFO, proInfo);
         map.put(SIMPLE_URL, imgList.get((int) (Math.random() * 6)));

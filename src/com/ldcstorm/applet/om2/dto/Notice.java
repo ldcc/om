@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Map;
 
-
 public class Notice extends DTO {
     public static final String NOTICE_BASE = ".notices";
     public static final String UID = "UID";
@@ -27,7 +26,7 @@ public class Notice extends DTO {
     }
 
     public Notice(Integer uid, String title, String content, Date pubDate, String noticeType) {
-        map.put(ID, 0);
+        super();
         map.put(UID, uid);
         map.put(TITLE, title);
         map.put(CONTENT, content);

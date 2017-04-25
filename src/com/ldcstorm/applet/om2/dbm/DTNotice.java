@@ -8,14 +8,14 @@ import java.util.Collections;
 import java.util.List;
 
 public class DTNotice<O extends DTO> extends DTM<O> {
-    private DTNotice(Class<O> tClass, String base) {
-        super(tClass, base);
-    }
-
     private static final DTM<Notice> dtm = new DTNotice<>(Notice.class, Notice.NOTICE_BASE);
 
     public static DTM<Notice> getDtm() {
         return dtm;
+    }
+
+    private DTNotice(Class<O> tClass, String base) {
+        super(tClass, base);
     }
 
     @Override

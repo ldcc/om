@@ -15,8 +15,8 @@ public class Site extends DTO {
         this.map = map;
     }
 
-    public Site(Integer id, String name, String url) {
-        map.put(ID, id);
+    public Site(String name, String url) {
+        super();
         map.put(SITE_NAME, name);
         map.put(SITE_URL, url);
     }
