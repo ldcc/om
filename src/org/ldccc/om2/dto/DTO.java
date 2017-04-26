@@ -1,4 +1,4 @@
-package com.ldcstorm.applet.om2.dto;
+package org.ldccc.om2.dto;
 
 import java.sql.Date;
 import java.util.HashMap;

@@ -1,4 +1,4 @@
-package com.ldcstorm.applet.om2.dbm;
+package org.ldccc.om2.dbm;
 
 import java.io.FileInputStream;
 import java.io.IOException;

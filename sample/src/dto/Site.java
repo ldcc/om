@@ -1,4 +1,7 @@
-package com.ldcstorm.applet.om2.dto;
+package dto;
+
+import org.ldccc.om2.dbm.DTM;
+import org.ldccc.om2.dto.DTO;
 
 import java.util.Map;
 
@@ -19,5 +22,17 @@ public class Site extends DTO {
         super();
         map.put(SITE_NAME, name);
         map.put(SITE_URL, url);
+    }
+
+    private static final DTM<Site> dtm = new DTSite<>(Site.class, Site.SITE_BASE);
+
+    public static DTM<Site> getDtm() {
+        return dtm;
+    }
+
+    private static class DTSite<O extends DTO> extends DTM<O> {
+        private DTSite(Class<O> tClass, String base) {
+            super(tClass, base);
+        }
     }
 }

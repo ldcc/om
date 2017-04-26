@@ -1,7 +1,12 @@
-package com.ldcstorm.applet.om2.dto;
+package dto;
+
+import org.ldccc.om2.dbm.DTM;
+import org.ldccc.om2.dto.DTO;
 
 import java.sql.Date;
+import java.sql.Statement;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -35,4 +40,24 @@ public class Notice extends DTO {
         map.put(NOTICE_TYPE, noticeType);
         map.put(IMAGE, imgList.get((int) (Math.random() * 4)));
     }
+
+    private static final DTM<Notice> dtm = new DTNotice<>(Notice.class, Notice.NOTICE_BASE);
+
+    public static DTM<Notice> getDtm() {
+        return dtm;
+    }
+
+    private static class DTNotice<O extends DTO> extends DTM<O> {
+        private DTNotice(Class<O> tClass, String base) {
+            super(tClass, base);
+        }
+
+        @Override
+        protected List<O> getAll(Statement statement) {
+            List<O> os = super.getAll(statement);
+            Collections.reverse(os);
+            return os;
+        }
+    }
 }
+

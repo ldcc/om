@@ -1,44 +1,24 @@
-package com.ldcstorm.applet.om2;
-
-import com.ldcstorm.applet.om2.dbm.DBManager;
-import com.ldcstorm.applet.om2.dbm.DTNotice;
-import com.ldcstorm.applet.om2.dbm.DTProduct;
-import com.ldcstorm.applet.om2.dbm.DTUser;
-import com.ldcstorm.applet.om2.dto.Notice;
-import com.ldcstorm.applet.om2.dto.Product;
-import com.ldcstorm.applet.om2.dto.User;
+import dto.Notice;
+import dto.Product;
+import dto.User;
+import org.ldccc.om2.dbm.DBManager;
 
 import java.sql.Date;
 import java.util.List;
 
-import static com.ldcstorm.applet.om2.dto.DTO.ID;
+import static org.ldccc.om2.dto.DTO.ID;
 
 public class Main {
     /**
      * Sample
      */
     public static void main(String[] args) {
-        System.out.println("Hello Database");
-//        getSingle();
-//        getAllProducts();
+        getSingle();
+        getAllProducts();
         addNotice();
-//        updateUser();
-//        deleteNotice();
+        updateUser();
+        deleteNotice();
 
-//        System.out.println(testTry());
-    }
-
-    private static String testTry() {
-        try {
-            System.out.println("try");
-            return testSout();
-        } catch (Exception e) {
-            System.out.println("err");
-            return "return err";
-        } finally {
-            System.out.println("finally");
-            return "return fina";
-        }
     }
 
     private static String testSout() {
@@ -50,7 +30,7 @@ public class Main {
      * getting single object
      */
     private static void getSingle() {
-        User user = DBManager.getSingleton().get(DTUser.getDtm(), ID, "2");
+        User user = DBManager.getSingleton().get(User.getDtm(), ID, "2");
 //        System.out.println(user.getInt(User.ID));
         System.out.println(user.<Integer>getObj(User.ID));
         System.out.println(user.<String>getObj(User.USER_NAME));
@@ -60,7 +40,7 @@ public class Main {
      * getting All object (A Object List)
      */
     private static void getAllProducts() {
-        List<Product> products = DBManager.getSingleton().getAll(DTProduct.getDtm());
+        List<Product> products = DBManager.getSingleton().getAll(Product.getDtm());
         System.out.println(products);
     }
 
@@ -74,7 +54,7 @@ public class Main {
         Date date = new Date(new java.util.Date().getTime());
         String type = "news ";
         Notice notice = new Notice(uid, title, content, date, type);
-        if (DBManager.getSingleton().add(DTNotice.getDtm(), notice)) {
+        if (DBManager.getSingleton().add(Notice.getDtm(), notice)) {
             System.out.println(notice);
         } else {
             System.out.println("Something wrong, can't insert data to database");
@@ -85,10 +65,10 @@ public class Main {
      * updating object
      */
     private static void updateUser() {
-        User user = DBManager.getSingleton().get(DTUser.getDtm(), ID, "2");
+        User user = DBManager.getSingleton().get(User.getDtm(), ID, "2");
         user.setObj(User.USER_AUTH, true);
         System.out.println(
-                DBManager.getSingleton().update(DTUser.getDtm(), user) ? user : "Update failed"
+                DBManager.getSingleton().update(User.getDtm(), user) ? user : "Update failed"
         );
     }
 
@@ -96,9 +76,9 @@ public class Main {
      * deleting object
      */
     private static void deleteNotice() {
-        Notice notice = DBManager.getSingleton().get(DTNotice.getDtm(), ID, "19");
+        Notice notice = DBManager.getSingleton().get(Notice.getDtm(), ID, "19");
         System.out.println(
-                DBManager.getSingleton().delete(DTNotice.getDtm(), notice) ? "Delete success" : "Delete failed"
+                DBManager.getSingleton().delete(Notice.getDtm(), notice) ? "Delete success" : "Delete failed"
         );
     }
 }

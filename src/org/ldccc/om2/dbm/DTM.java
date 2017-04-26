@@ -1,6 +1,6 @@
-package com.ldcstorm.applet.om2.dbm;
+package org.ldccc.om2.dbm;
 
-import com.ldcstorm.applet.om2.dto.DTO;
+import org.ldccc.om2.dto.DTO;
 
 import java.lang.reflect.InvocationTargetException;
 import java.security.InvalidParameterException;

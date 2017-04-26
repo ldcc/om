@@ -1,6 +1,11 @@
-package com.ldcstorm.applet.om2.dto;
+package dto;
 
+import org.ldccc.om2.dbm.DTM;
+import org.ldccc.om2.dto.DTO;
+
+import java.sql.Statement;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 
@@ -33,4 +38,22 @@ public class Product extends DTO {
         map.put(MATERIAL, material);
     }
 
+    private static final DTM<Product> dtm = new DTProduct<>(Product.class, Product.PRODUCT_BASE);
+
+    public static DTM<Product> getDtm() {
+        return dtm;
+    }
+
+    private static class DTProduct<O extends DTO> extends DTM<O> {
+        private DTProduct(Class<O> tClass, String base) {
+            super(tClass, base);
+        }
+
+        @Override
+        protected List<O> getAll(Statement statement) {
+            List<O> os= super.getAll(statement);
+            Collections.reverse(os);
+            return os;
+        }
+    }
 }
