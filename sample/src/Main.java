@@ -14,11 +14,10 @@ public class Main {
      */
     public static void main(String[] args) {
         getSingle();
-        getAllProducts();
-        addNotice();
-        updateUser();
-        deleteNotice();
-
+//        getAllProducts();
+//        addNotice();
+//        updateUser();
+//        deleteNotice();
     }
 
     private static String testSout() {
