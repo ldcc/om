@@ -4,10 +4,7 @@ import org.ldccc.om2.dbm.DTM;
 import org.ldccc.om2.dto.DTO;
 
 import java.sql.Statement;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Product extends DTO {
     public static final String PRODUCT_BASE = ".products";
@@ -27,15 +24,20 @@ public class Product extends DTO {
     }
 
     public Product(String proName, String proInfo, String color, String origin, String style, String material) {
-        super();
+        super(toMap(proName, proInfo, color, origin, style, material));
+    }
+
+    public static Map<String, Object> toMap(String proName, String proInfo, String color, String origin, String style, String material) {
+        Map<String, Object> map = new HashMap<>();
         map.put(PRO_NAME, proName);
         map.put(PRO_INFO, proInfo);
         map.put(SIMPLE_URL, imgList.get((int) (Math.random() * 6)));
         map.put(COLOR, color);
         map.put(ORIGIN, origin);
-        map.put(SUITABLE, "飘窗 八角窗 凸窗 落地窗 遮光");
+        map.put(SUITABLE, "1 2 3 4 5");
         map.put(STYLE, style);
         map.put(MATERIAL, material);
+        return map;
     }
 
     private static final DTM<Product> dtm = new DTProduct<>(Product.class, Product.PRODUCT_BASE);
@@ -51,7 +53,7 @@ public class Product extends DTO {
 
         @Override
         protected List<O> getAll(Statement statement) {
-            List<O> os= super.getAll(statement);
+            List<O> os = super.getAll(statement);
             Collections.reverse(os);
             return os;
         }

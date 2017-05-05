@@ -29,7 +29,7 @@ public class Main {
      * getting single object
      */
     private static void getSingle() {
-        User user = DBManager.getSingleton().get(User.getDtm(), ID, "2");
+        User user = DBManager.getSingleton().get(User.getDtm(), ID, "1");
 //        System.out.println(user.getInt(User.ID));
         System.out.println(user.<Integer>getObj(User.ID));
         System.out.println(user.<String>getObj(User.USER_NAME));

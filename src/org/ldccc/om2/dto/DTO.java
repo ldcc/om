@@ -1,6 +1,5 @@
 package org.ldccc.om2.dto;
 
-import java.sql.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
@@ -11,10 +10,6 @@ public class DTO {
 
     public DTO(Map<String, Object> map) {
         this.map = map;
-    }
-
-    public DTO(Object[]... args) {
-        map.put(ID, 0);
     }
 
     /**
@@ -28,26 +23,6 @@ public class DTO {
         map.put(column, value);
     }
 
-    @Deprecated
-    public void setString(String column, String value) {
-        map.put(column, value);
-    }
-
-    @Deprecated
-    public void setInt(String column, Integer value) {
-        map.put(column, value);
-    }
-
-    @Deprecated
-    public void setDate(String column, Date value) {
-        map.put(column, value);
-    }
-
-    @Deprecated
-    public void setBool(String column, Boolean value) {
-        map.put(column, value);
-    }
-
     /**
      * Getting one of the data value
      *
@@ -57,26 +32,6 @@ public class DTO {
      */
     public <O> O getObj(String column) {
         return (O) map.get(column);
-    }
-
-    @Deprecated
-    public String getString(String column) {
-        return (String) map.get(column);
-    }
-
-    @Deprecated
-    public Integer getInt(String column) {
-        return (Integer) map.get(column);
-    }
-
-    @Deprecated
-    public Date getDate(String column) {
-        return (Date) map.get(column);
-    }
-
-    @Deprecated
-    public Boolean getBool(String column) {
-        return (Boolean) map.get(column);
     }
 
     /**

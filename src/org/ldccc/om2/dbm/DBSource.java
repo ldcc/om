@@ -1,5 +1,6 @@
 package org.ldccc.om2.dbm;
 
+import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -33,7 +34,10 @@ public class DBSource {
     private DBSource() {
         Properties properties = new Properties();
         try {
+            File f = new File("");
+            System.out.println(f.getAbsolutePath());
             properties.load(this.getClass().getClassLoader().getResourceAsStream("jdbc.properties"));
+            System.out.println(properties);
         } catch (IOException e) {
             System.err.println("找不到 \"jdbc.properties\" 文件，请确定该文件存放在 res 目录下");
             e.printStackTrace();
