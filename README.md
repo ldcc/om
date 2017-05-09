@@ -1,4 +1,7 @@
-# om2
-om2 is a tool for Database to Object constructing and enquiring with automatic.
+# om3
+om3 is a tool for "Database to Object" constructing builder.
 
-##### Just for helping people to using Database more easily.
+## feature
+enquiring with automatic: suppport
+
+kotlin: support
