@@ -70,13 +70,13 @@ public abstract class DTM<O extends DTO> {
 		String sql = "INSERT INTO " + base + Operator.INSTANCE.toInsertSQL(o, fields, params);
 		return add(statement, sql);
 	}
-//
+
 //	protected boolean update(Statement statement, O o) {
 //		String sql = "UPDATE " + base + o.toUpdateSQL();
 //		System.out.println(sql);
 //		return update(statement, sql);
 //	}
-//
+
 //	protected boolean delete(Statement statement, O o) {
 //		String sql = "DELETE FROM " + base + o.toDeleteSQL();
 //		return delete(statement, sql);

@@ -5,7 +5,6 @@ import org.ldccc.om3.dbm.DBManager;
 import java.sql.Date;
 import java.util.List;
 
-import static org.ldccc.om3.dto.DTO.ID;
 
 class A {
 	String name;
@@ -46,7 +45,7 @@ public class Main {
 	 * get single
 	 */
 	private static void getSingle() {
-		User user = DBManager.getSingleton().get(C.INSTANCE.getDtu(), ID, "1");
+		User user = DBManager.getSingleton().get(C.INSTANCE.getDtu(), C.U.ID.name(), "1");
 		System.out.println(user);
 	}
 
