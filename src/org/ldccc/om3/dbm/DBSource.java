@@ -1,4 +1,4 @@
-package org.ldccc.om2.dbm;
+package org.ldccc.om3.dbm;
 
 import java.io.IOException;
 import java.sql.Connection;
@@ -9,27 +9,18 @@ import java.util.List;
 import java.util.Properties;
 
 public class DBSource {
-    /**
-     * Connection properties for your Database
-     */
     private String url;
     private String username;
     private String password;
     private int poolMax;
     private List<Connection> connectionPool;
 
-    /**
-     * DBSource utilizing the "Pattern of Singleton"
-     */
     private static DBSource singleton = new DBSource();
 
     protected static DBSource getSingleton() {
         return singleton;
     }
 
-    /**
-     * Load properties that Database who will be using
-     */
     private DBSource() {
         Properties properties = new Properties();
         try {
@@ -51,11 +42,6 @@ public class DBSource {
         connectionPool = new ArrayList<>();
     }
 
-    /**
-     * Getting connection utilizing by “multiple connection pool”
-     *
-     * @return Return one of the connection in the pool
-     */
     protected synchronized Connection getConnection() {
         if (connectionPool.size() <= poolMax) {
             try {
@@ -70,14 +56,6 @@ public class DBSource {
         }
     }
 
-    /**
-     * Also is a "Connection Pool" Manager
-     * If the connection pool are full enough and not any vacant space of having
-     * So close a one
-     * Else, we put that on the pool for decreasing consuming of computing brought by the Database I/O operate
-     *
-     * @param conn Just a connection you don't use no longer
-     */
     protected synchronized void closeConnection(Connection conn) {
         if (connectionPool.size() >= poolMax) {
             try {

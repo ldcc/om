@@ -1,59 +1,88 @@
-import dto.User1;
-import dto.a;
-import org.ldccc.om2.dbm.DBManager;
+import constant.C;
+import dto.User;
+import org.ldccc.om3.dbm.DBManager;
 
-import static org.ldccc.om2.dto.DTO.ID;
+import java.sql.Date;
+import java.util.List;
+
+import static org.ldccc.om3.dto.DTO.ID;
+
+class A {
+	String name;
+
+	@Override
+	public String toString() {
+		return name;
+	}
+}
+
 
 public class Main {
 	/**
 	 * Sample
 	 */
 	public static void main(String[] args) {
-		getSingle();
-//        getAllProducts();
-//		addNotice();
-//        updateUser();
-//        deleteNotice();
+//		getSingle();
+//		getAll();
+		add();
+//		update();
+//		delete();
+
+//		Map<Integer, A> map = new HashMap<>();
+//
+//		A a = new A();
+//		a.name = "tom";
+//
+//		map.put(1, a);
+//		System.out.println(map);
+//
+//		a.name = "ldc";
+//
+//		System.out.println(map);
+
 	}
 
 	/**
-	 * getting single object
+	 * get single
 	 */
 	private static void getSingle() {
-		User1 user1 = DBManager.getSingleton().get(a.INSTANCE.getDTM(), ID, "1");
-		System.out.println(user1);
-
-
-//		System.out.println(user1.<Integer>getObj(User1.ID));
-//		System.out.println(user1.<String>getObj(User1.Companion.getUSER_NAME()));
+		User user = DBManager.getSingleton().get(C.INSTANCE.getDtu(), ID, "1");
+		System.out.println(user);
 	}
 
 	/**
-	 * getting All object (A Object List)
+	 * get All
 	 */
-	private static void getAllProducts() {
+	private static void getAll() {
+		List<User> us = DBManager.getSingleton().getAll(C.INSTANCE.getDtu());
+		System.out.println(us);
 	}
 
 	/**
-	 * adding object
+	 * add
 	 */
-	private static void addNotice() {
-	}
-
-	/**
-	 * updating object
-	 */
-	private static void updateUser() {
-		User1 user1 = DBManager.getSingleton().get(a.INSTANCE.getDTM(), ID, "2");
-		user1.setObj(a.INSTANCE.getUSER_AUTH(), true);
+	private static void add() {
+		User user = new User("若救治", "123", false, new Date(new java.util.Date().getTime()), 0);
 		System.out.println(
-				DBManager.getSingleton().update(a.INSTANCE.getDTM(), user1) ? user1 : "Update failed"
+				DBManager.getSingleton().add(C.INSTANCE.getDtu(), user) ? user : "Insert failed"
 		);
 	}
 
 	/**
-	 * deleting object
+	 * update
 	 */
-	private static void deleteNotice() {
-	}
+//	private static void update() {
+//		User user = DBManager.getSingleton().get(C.INSTANCE.getDtu(), ID, "3");
+//		user.setAuth(true);
+//		System.out.println(
+//				DBManager.getSingleton().update(C.INSTANCE.getDtu(), user) ? user : "Update failed"
+//		);
+//	}
+
+	/**
+	 * delete
+	 */
+//	private static void delete() {
+//
+//	}
 }
