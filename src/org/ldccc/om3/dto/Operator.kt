@@ -1,33 +1,18 @@
 package org.ldccc.om3.dto
 
-import java.lang.reflect.Field
+import org.ldccc.om3.dbm.DBManager
+import org.ldccc.om3.dbm.DTM
 
 object Operator {
-//	fun <O> setVal(column: String, value: O) {
-//		map.put(column, value)
-//	}
-//
-//	fun <O> getVal(column: String): O {
-//		return map.get(column)
-//	}
 
+	fun <O : DTO> selectById(dtm: DTM<O>, id: Int) = DBManager.getSingleton().get(dtm, DTO.Companion.ID, id.toString())
 
-	private fun sqlStyle(ori: Any): String {
-		return when (ori) {
-			is Boolean, is Int, is Long -> ori.toString()
-			else -> "\'" + ori + "\'"
-		}
-	}
+	fun <O : DTO> selectAll(dtm: DTM<O>) = DBManager.getSingleton().getAll(dtm)
 
-	fun <O : DTO> toInsertSQL(o: O, fields: Array<Field>, params: Array<String>): String {
-		return "(${params.joinToString()})VALUES(${fields.map { sqlStyle(it.get(o)) }.joinToString()});"
-	}
+	fun <O : DTO> addSingle(dtm: DTM<O>, o: O) = DBManager.getSingleton().add(dtm, o)
 
-	fun <O : DTO> toUpdateSQL(o: O, fields: Array<Field>, params: Array<String>): String {
-		return " SET ${params.indices.map { params[it] + "=" + sqlStyle(fields[it].get(o)) }.joinToString()} WHERE ID=${o.id};"
-	}
+	fun <O : DTO> updateSingle(dtm: DTM<O>, o: O) = DBManager.getSingleton().update(dtm, o)
 
-	fun <O : DTO> toDeleteSQL(o: O): String {
-		return " WHERE ID=${o.id};"
-	}
+	fun <O : DTO> deleteSingle(dtm: DTM<O>, o: O) = DBManager.getSingleton().delete(dtm, o)
+
 }

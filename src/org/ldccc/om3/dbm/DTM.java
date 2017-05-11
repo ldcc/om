@@ -1,13 +1,12 @@
 package org.ldccc.om3.dbm;
 
 import org.ldccc.om3.dto.DTO;
-import org.ldccc.om3.dto.Operator;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.security.InvalidParameterException;
-import java.sql.*;
 import java.sql.Date;
+import java.sql.*;
 import java.util.*;
 
 public abstract class DTM<O extends DTO> {
@@ -72,18 +71,17 @@ public abstract class DTM<O extends DTO> {
 	}
 
 	protected boolean add(Statement statement, O o) {
-		String sql = "INSERT INTO " + base + Operator.INSTANCE.toInsertSQL(o, fields, params);
+		String sql = "INSERT INTO " + base + o.toInsertSQL(fields, params);
 		return add(statement, sql);
 	}
 
 	protected boolean update(Statement statement, O o) {
-		String sql = "UPDATE " + base + Operator.INSTANCE.toUpdateSQL(o, fields, params);
+		String sql = "UPDATE " + base + o.toUpdateSQL(fields, params);
 		return update(statement, sql);
 	}
 
 	protected boolean delete(Statement statement, O o) {
-		String sql = "DELETE FROM " + base + Operator.INSTANCE.toDeleteSQL(o);
-		System.out.println(sql);
+		String sql = "DELETE FROM " + base + o.toDeleteSQL();
 		return delete(statement, sql);
 	}
 

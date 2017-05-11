@@ -25,7 +25,7 @@ public class Main {
 //		getAll();
 //		add();
 //		update();
-		delete();
+//		delete();
 
 //		Map<Integer, A> map = new HashMap<>();
 //
@@ -61,7 +61,7 @@ public class Main {
 	 * add
 	 */
 	private static void add() {
-		User user = new User("hahahh", "123", false, new Date(new java.util.Date().getTime()), 0);
+		User user = new User("2224", "123", false, new Date(new java.util.Date().getTime()), 0);
 		System.out.println(
 				DBManager.getSingleton().add(C.INSTANCE.getDtu(), user) ? user : "Insert failed"
 		);
@@ -71,7 +71,7 @@ public class Main {
 	 * update
 	 */
 	private static void update() {
-		User user = DBManager.getSingleton().get(C.INSTANCE.getDtu(), User.Companion.getID(), "14");
+		User user = DBManager.getSingleton().get(C.INSTANCE.getDtu(), User.Companion.getID(), "12");
 		user.setAuth(true);
 		System.out.println(
 				DBManager.getSingleton().update(C.INSTANCE.getDtu(), user) ? user : "Update failed"
@@ -82,9 +82,9 @@ public class Main {
 	 * delete
 	 */
 	private static void delete() {
-		User user = DBManager.getSingleton().get(C.INSTANCE.getDtu(), User.Companion.getID(), "14");
+		User user = DBManager.getSingleton().get(C.INSTANCE.getDtu(), User.Companion.getID(), "15");
 		System.out.println(
-				DBManager.getSingleton().delete(C.INSTANCE.getDtu(), user)
+				DBManager.getSingleton().delete(C.INSTANCE.getDtu(), user) ? user : "Delete failed"
 		);
 	}
 }
