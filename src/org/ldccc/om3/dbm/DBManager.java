@@ -49,30 +49,30 @@ public class DBManager {
 			DBSource.getSingleton().closeConnection(conn);
 		}
 	}
-//
-//	public <O extends DTO> boolean update(DTM<O> dtm, O o) {
-//		Connection conn = DBSource.getSingleton().getConnection();
-//		try (Statement statement = conn.createStatement()) {
-//			return dtm.update(statement, o);
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//			return false;
-//		} finally {
-//			DBSource.getSingleton().closeConnection(conn);
-//		}
-//	}
-//
-//	public <O extends DTO> boolean delete(DTM<O> dtm, O o) {
-//		Connection conn = DBSource.getSingleton().getConnection();
-//		try (Statement statement = conn.createStatement()) {
-//			return dtm.delete(statement, o);
-//		} catch (SQLException e) {
-//			e.printStackTrace();
-//			return false;
-//		} finally {
-//			DBSource.getSingleton().closeConnection(conn);
-//		}
-//	}
+
+	public <O extends DTO> boolean update(DTM<O> dtm, O o) {
+		Connection conn = DBSource.getSingleton().getConnection();
+		try (Statement statement = conn.createStatement()) {
+			return dtm.update(statement, o);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			DBSource.getSingleton().closeConnection(conn);
+		}
+	}
+
+	public <O extends DTO> boolean delete(DTM<O> dtm, O o) {
+		Connection conn = DBSource.getSingleton().getConnection();
+		try (Statement statement = conn.createStatement()) {
+			return dtm.delete(statement, o);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return false;
+		} finally {
+			DBSource.getSingleton().closeConnection(conn);
+		}
+	}
 
 }
 

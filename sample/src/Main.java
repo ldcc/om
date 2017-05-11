@@ -23,9 +23,9 @@ public class Main {
 	public static void main(String[] args) {
 //		getSingle();
 //		getAll();
-		add();
+//		add();
 //		update();
-//		delete();
+		delete();
 
 //		Map<Integer, A> map = new HashMap<>();
 //
@@ -45,7 +45,7 @@ public class Main {
 	 * get single
 	 */
 	private static void getSingle() {
-		User user = DBManager.getSingleton().get(C.INSTANCE.getDtu(), C.U.ID.name(), "1");
+		User user = DBManager.getSingleton().get(C.INSTANCE.getDtu(), User.Companion.getID(), "1");
 		System.out.println(user);
 	}
 
@@ -61,7 +61,7 @@ public class Main {
 	 * add
 	 */
 	private static void add() {
-		User user = new User("若救治", "123", false, new Date(new java.util.Date().getTime()), 0);
+		User user = new User("hahahh", "123", false, new Date(new java.util.Date().getTime()), 0);
 		System.out.println(
 				DBManager.getSingleton().add(C.INSTANCE.getDtu(), user) ? user : "Insert failed"
 		);
@@ -70,18 +70,21 @@ public class Main {
 	/**
 	 * update
 	 */
-//	private static void update() {
-//		User user = DBManager.getSingleton().get(C.INSTANCE.getDtu(), ID, "3");
-//		user.setAuth(true);
-//		System.out.println(
-//				DBManager.getSingleton().update(C.INSTANCE.getDtu(), user) ? user : "Update failed"
-//		);
-//	}
+	private static void update() {
+		User user = DBManager.getSingleton().get(C.INSTANCE.getDtu(), User.Companion.getID(), "14");
+		user.setAuth(true);
+		System.out.println(
+				DBManager.getSingleton().update(C.INSTANCE.getDtu(), user) ? user : "Update failed"
+		);
+	}
 
 	/**
 	 * delete
 	 */
-//	private static void delete() {
-//
-//	}
+	private static void delete() {
+		User user = DBManager.getSingleton().get(C.INSTANCE.getDtu(), User.Companion.getID(), "14");
+		System.out.println(
+				DBManager.getSingleton().delete(C.INSTANCE.getDtu(), user)
+		);
+	}
 }

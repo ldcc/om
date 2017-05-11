@@ -14,6 +14,7 @@ public abstract class DTM<O extends DTO> {
 	private Class<O> clazz;
 	private String[] params;
 	private Field[] fields;
+	private Class[] classes;
 
 	protected String base;
 
@@ -21,6 +22,8 @@ public abstract class DTM<O extends DTO> {
 		this.clazz = clazz;
 		this.params = params;
 		fields = clazz.getDeclaredFields();
+		classes = Arrays.stream(fields).map(Field::getType).toArray(Class[]::new);
+		Arrays.stream(fields).forEach(field -> field.setAccessible(true));
 		if (base != null) {
 			this.base = base;
 		} else {
@@ -30,7 +33,9 @@ public abstract class DTM<O extends DTO> {
 
 	private O getO(Map<String, Object> map) {
 		try {
-			return clazz.getConstructor(Map.class).newInstance(map);
+			return clazz.getConstructor(classes).newInstance(
+					Arrays.stream(params).map(map::get).toArray()
+			);
 		} catch (InstantiationException | IllegalAccessException | NoSuchMethodException | InvocationTargetException e) {
 			e.printStackTrace();
 			return null;
@@ -71,16 +76,16 @@ public abstract class DTM<O extends DTO> {
 		return add(statement, sql);
 	}
 
-//	protected boolean update(Statement statement, O o) {
-//		String sql = "UPDATE " + base + o.toUpdateSQL();
-//		System.out.println(sql);
-//		return update(statement, sql);
-//	}
+	protected boolean update(Statement statement, O o) {
+		String sql = "UPDATE " + base + Operator.INSTANCE.toUpdateSQL(o, fields, params);
+		return update(statement, sql);
+	}
 
-//	protected boolean delete(Statement statement, O o) {
-//		String sql = "DELETE FROM " + base + o.toDeleteSQL();
-//		return delete(statement, sql);
-//	}
+	protected boolean delete(Statement statement, O o) {
+		String sql = "DELETE FROM " + base + Operator.INSTANCE.toDeleteSQL(o);
+		System.out.println(sql);
+		return delete(statement, sql);
+	}
 
 	protected O get(Statement statement, String sql) {
 		try (ResultSet set = statement.executeQuery(sql)) {
