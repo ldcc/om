@@ -11,5 +11,7 @@ object C {
 		USER_NAME, USER_PASSWORD, AUTH, CREATE_TIME, ID
 	}
 
-	val dtu: DTM<User> = DTUser(User::class.java, U.values().map(U::name).toTypedArray(), USER_BASE)
+	val dtu: DTM<User> = DTUser(User::class.java, USER_BASE)
+
+	val uParams:Array<String> = U.values().map(U::name).toTypedArray()
 }

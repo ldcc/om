@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-public class DBSource {
+class DBSource {
     private String url;
     private String username;
     private String password;
@@ -17,7 +17,7 @@ public class DBSource {
 
     private static DBSource singleton = new DBSource();
 
-    protected static DBSource getSingleton() {
+    static DBSource getSingleton() {
         return singleton;
     }
 

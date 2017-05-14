@@ -8,4 +8,4 @@ data class User(var name: String?, var password: String?, var auth: Boolean?, va
 	constructor() : this(null, null, null, null)
 }
 
-class DTUser<O : DTO> constructor(tClass: Class<O>, params: Array<String>, base: String) : DTM<O>(tClass, params, base)
+class DTUser<O : DTO> constructor(tClass: Class<O>, base: String) : DTM<O>(tClass, base)

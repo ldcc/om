@@ -1,20 +1,10 @@
 import constant.C;
 import dto.User;
 import org.ldccc.om3.dbm.DBManager;
+import org.ldccc.om3.dbm.Aide;
 
 import java.sql.Date;
 import java.util.List;
-
-
-class A {
-	String name;
-
-	@Override
-	public String toString() {
-		return name;
-	}
-}
-
 
 public class Main {
 	/**
@@ -27,18 +17,9 @@ public class Main {
 //		update();
 //		delete();
 
-//		Map<Integer, A> map = new HashMap<>();
-//
-//		A a = new A();
-//		a.name = "tom";
-//
-//		map.put(1, a);
-//		System.out.println(map);
-//
-//		a.name = "ldc";
-//
-//		System.out.println(map);
-
+		String s = Aide.INSTANCE.camel2muji("userName");
+		System.out.println(s);
+		C.INSTANCE.getDtu().setParams(C.INSTANCE.getUParams());
 	}
 
 	/**
