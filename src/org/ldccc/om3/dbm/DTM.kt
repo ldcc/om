@@ -8,14 +8,14 @@ import java.sql.Date
 import java.sql.*
 import java.util.*
 
-abstract class DTM<O : DTO> protected constructor(private val clazz: Class<O>, private var base: String) {
+abstract class DTM<O : DTO> protected constructor(private val clazz: Class<O>, private val base: String) {
 	private val fields: Array<Field> = clazz.declaredFields
 	private val classes: Array<Class<*>>
 
-	var params: Array<String>
+	var columns: Array<String>
 
 	init {
-		params = fields.map(Aide::field2column).toTypedArray()
+		columns = fields.map(Aide::field2column).toTypedArray()
 		classes = fields.map(Field::getType).toTypedArray()
 		fields.forEach { it.isAccessible = true }
 	}
@@ -23,7 +23,7 @@ abstract class DTM<O : DTO> protected constructor(private val clazz: Class<O>, p
 	private fun getO(map: Map<String, Any>): O {
 		return try {
 			clazz.getConstructor(*classes).newInstance(
-					*params.map(map::get).toTypedArray()
+					*columns.map(map::get).toTypedArray()
 			)
 		} catch (e: InstantiationException) {
 			e.printStackTrace()
@@ -60,37 +60,36 @@ abstract class DTM<O : DTO> protected constructor(private val clazz: Class<O>, p
 		return map
 	}
 
-	operator fun get(statement: Statement, column: String, value: String): O {
+	fun findByID(statement: Statement, column: String, value: String): O {
 		val sql = "SELECT * FROM $base WHERE $column='$value';"
-		return get(statement, sql) as O
+		return findByID(statement, sql) as O
 	}
 
-	fun getAll(statement: Statement): List<O> {
+	fun findByCondition(statement: Statement): List<O> {
 		val sql = "SELECT * FROM $base;"
-		return getAll(statement, sql) as List<O>
+		return findByCondition(statement, sql) as List<O>
 	}
 
-	fun add(statement: Statement, o: O): Boolean {
-		val sql = "INSERT INTO " + base + o.toInsertSQL(fields, params)
+	fun add(statement: Statement, vararg os: O): Boolean {
+		val sql = "INSERT INTO " + base + Aide.toInsertSQL(fields, columns, *os)
 		return add(statement, sql)
 	}
 
 	fun update(statement: Statement, o: O): Boolean {
-		val sql = "UPDATE " + base + o.toUpdateSQL(fields, params)
+		val sql = "UPDATE " + base + Aide.toUpdateSQL(fields, columns, o)
 		return update(statement, sql)
 	}
 
-	fun delete(statement: Statement, o: O): Boolean {
-		val sql = "DELETE FROM " + base + o.toDeleteSQL()
+	fun delete(statement: Statement, vararg os: O): Boolean {
+		val sql = "DELETE FROM " + base + Aide.toDeleteSQL(*os)
 		return delete(statement, sql)
 	}
 
-	protected operator fun get(statement: Statement, sql: String): O? {
+	protected fun findByID(statement: Statement, sql: String): O? {
 		return try {
 			statement.executeQuery(sql).use {
 				it.first()
-				val data = it.metaData
-				getO(getMap(it, data))
+				getO(getMap(it, it.metaData))
 			}
 		} catch (e: SQLException) {
 			e.printStackTrace()
@@ -98,16 +97,11 @@ abstract class DTM<O : DTO> protected constructor(private val clazz: Class<O>, p
 		}
 	}
 
-	protected fun getAll(statement: Statement, sql: String): List<O>? {
+	protected fun findByCondition(statement: Statement, sql: String): List<O>? {
 		return try {
 			statement.executeQuery(sql).use {
-				val data = it.metaData
 				val os = ArrayList<O>()
-				while (it.next()) {
-					val map = getMap(it, data)
-					val o = getO(map)
-					os.add(o)
-				}
+				while (it.next()) os.add(getO(getMap(it, it.metaData)))
 				os
 			}
 		} catch (e: SQLException) {
@@ -143,12 +137,12 @@ abstract class DTM<O : DTO> protected constructor(private val clazz: Class<O>, p
 			false
 		}
 	}
-
 }
 
-
-fun <O> ResultSet.use(block: (ResultSet) -> O): O? = try {
-	block(this)
-} finally {
-	this.close()
+fun <O> ResultSet.use(block: (ResultSet) -> O): O? {
+	return try {
+		block(this)
+	} finally {
+		this.close()
+	}
 }

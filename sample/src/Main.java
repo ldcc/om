@@ -12,29 +12,29 @@ public class Main {
 	 */
 	public static void main(String[] args) {
 //		getSingle();
-//		getAll();
+//		findAll();
 //		add();
 //		update();
 //		delete();
 
-		String s = Aide.INSTANCE.camel2muji("userName");
+		String s = Aide.INSTANCE.camel2snake("userName");
 		System.out.println(s);
-		C.INSTANCE.getDtu().setParams(C.INSTANCE.getUParams());
+		C.INSTANCE.getDtu().setColumns(C.INSTANCE.getUParams());
 	}
 
 	/**
-	 * get single
+	 * findById single
 	 */
 	private static void getSingle() {
-		User user = DBManager.getSingleton().get(C.INSTANCE.getDtu(), User.Companion.getID(), "1");
+		User user = DBManager.getSingleton().findById(C.INSTANCE.getDtu(), "1");
 		System.out.println(user);
 	}
 
 	/**
-	 * get All
+	 * findById All
 	 */
 	private static void getAll() {
-		List<User> us = DBManager.getSingleton().getAll(C.INSTANCE.getDtu());
+		List<User> us = DBManager.getSingleton().findAll(C.INSTANCE.getDtu());
 		System.out.println(us);
 	}
 
@@ -52,7 +52,7 @@ public class Main {
 	 * update
 	 */
 	private static void update() {
-		User user = DBManager.getSingleton().get(C.INSTANCE.getDtu(), User.Companion.getID(), "12");
+		User user = DBManager.getSingleton().findById(C.INSTANCE.getDtu(), "12");
 		user.setAuth(true);
 		System.out.println(
 				DBManager.getSingleton().update(C.INSTANCE.getDtu(), user) ? user : "Update failed"
@@ -63,7 +63,7 @@ public class Main {
 	 * delete
 	 */
 	private static void delete() {
-		User user = DBManager.getSingleton().get(C.INSTANCE.getDtu(), User.Companion.getID(), "15");
+		User user = DBManager.getSingleton().findById(C.INSTANCE.getDtu(), "15");
 		System.out.println(
 				DBManager.getSingleton().delete(C.INSTANCE.getDtu(), user) ? user : "Delete failed"
 		);
