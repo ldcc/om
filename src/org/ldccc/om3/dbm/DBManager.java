@@ -1,6 +1,6 @@
 package org.ldccc.om3.dbm;
 
-import org.ldccc.om3.dto.DTO;
+import org.ldccc.om3.dto.PO;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -14,10 +14,10 @@ public class DBManager {
 		return singleton;
 	}
 
-	public <O extends DTO> O findById(DTM<O> dtm, String value) {
+	public <O extends PO> O findById(DTM<O> dtm, String value) {
 		Connection conn = DBSource.getSingleton().getConnection();
 		try (Statement statement = conn.createStatement()) {
-			return dtm.findByID(statement, DTO.Companion.getID(), value);
+			return dtm.findByID(statement, PO.Companion.getID(), value);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -26,10 +26,10 @@ public class DBManager {
 		}
 	}
 
-	public <O extends DTO> List<O> findByCondition(DTM<O> dtm, String sql) {
+	public <O extends PO> List<O> findWithCond(DTM<O> dtm, String sql) {
 		Connection conn = DBSource.getSingleton().getConnection();
 		try (Statement statement = conn.createStatement()) {
-			return dtm.findByCondition(statement, sql);
+			return dtm.findWithCond(statement, sql);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -38,10 +38,10 @@ public class DBManager {
 		}
 	}
 
-	public <O extends DTO> List<O> findAll(DTM<O> dtm) {
+	public <O extends PO> List<O> findAll(DTM<O> dtm) {
 		Connection conn = DBSource.getSingleton().getConnection();
 		try (Statement statement = conn.createStatement()) {
-			return dtm.findByCondition(statement);
+			return dtm.findWithCond(statement);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -51,7 +51,7 @@ public class DBManager {
 	}
 
 	@SafeVarargs
-	public final <O extends DTO> boolean add(DTM<O> dtm, O... o) {
+	public final <O extends PO> boolean add(DTM<O> dtm, O... o) {
 		Connection conn = DBSource.getSingleton().getConnection();
 		try (Statement statement = conn.createStatement()) {
 			return dtm.add(statement, o);
@@ -63,7 +63,7 @@ public class DBManager {
 		}
 	}
 
-	public <O extends DTO> boolean update(DTM<O> dtm, O... o) {
+	public <O extends PO> boolean update(DTM<O> dtm, O o) {
 		Connection conn = DBSource.getSingleton().getConnection();
 		try (Statement statement = conn.createStatement()) {
 			return dtm.update(statement, o);
@@ -75,10 +75,11 @@ public class DBManager {
 		}
 	}
 
-	public <O extends DTO> boolean delete(DTM<O> dtm, O... o) {
+	@SafeVarargs
+	public final <O extends PO> boolean delete(DTM<O> dtm, O... os) {
 		Connection conn = DBSource.getSingleton().getConnection();
 		try (Statement statement = conn.createStatement()) {
-			return dtm.delete(statement, o);
+			return dtm.delete(statement, os);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return false;

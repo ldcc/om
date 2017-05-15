@@ -1,8 +1,6 @@
 package org.ldccc.om3.dto
 
-import java.lang.reflect.Field
-
-open class DTO(open var id: Int) {
+open class PO(open var id: Int) {
 	constructor() : this(0)
 
 //	override fun hashCode(): Int {
@@ -21,15 +19,15 @@ open class DTO(open var id: Int) {
 //		else -> "\'" + ori + "\'"
 //	}
 //
-//	fun toInsertSQL(fields: Array<Field>, columns: Array<String>): String {
+//	fun insStatement(fields: Array<Field>, columns: Array<String>): String {
 //		return "(${columns.joinToString()})VALUES(${fields.map { sqlStyle(it.get(this)) }.joinToString()});"
 //	}
 //
-//	fun toUpdateSQL(fields: Array<Field>, columns: Array<String>): String {
+//	fun updStatement(fields: Array<Field>, columns: Array<String>): String {
 //		return " SET ${columns.indices.map { columns[it] + "=" + sqlStyle(fields[it].get(this)) }.joinToString()} WHERE ID=${this.id};"
 //	}
 //
-//	fun toDeleteSQL() = " WHERE ID=${this.id};"
+//	fun delStatement() = " WHERE ID=${this.id};"
 
 	companion object {
 		val ID: String = "ID"

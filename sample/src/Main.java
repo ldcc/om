@@ -11,6 +11,7 @@ public class Main {
 	 * Sample
 	 */
 	public static void main(String[] args) {
+		C.INSTANCE.getDtu().setColumns(C.INSTANCE.getUParams());
 //		getSingle();
 //		findAll();
 //		add();
@@ -19,7 +20,6 @@ public class Main {
 
 		String s = Aide.INSTANCE.camel2snake("userName");
 		System.out.println(s);
-		C.INSTANCE.getDtu().setColumns(C.INSTANCE.getUParams());
 	}
 
 	/**

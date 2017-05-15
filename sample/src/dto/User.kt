@@ -1,11 +1,11 @@
 package dto
 
 import org.ldccc.om3.dbm.DTM
-import org.ldccc.om3.dto.DTO
+import org.ldccc.om3.dto.PO
 import java.util.*
 
-data class User(var name: String?, var password: String?, var auth: Boolean?, var createTime: Date?, override var id: Int = 0) : DTO(id) {
+data class User(var name: String?, var password: String?, var auth: Boolean?, var createTime: Date?, override var id: Int = 0) : PO(id) {
 	constructor() : this(null, null, null, null)
 }
 
-class DTUser<O : DTO> constructor(tClass: Class<O>, base: String) : DTM<O>(tClass, base)
+class DTUser<O : PO> constructor(tClass: Class<O>, base: String) : DTM<O>(tClass, base)

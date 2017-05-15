@@ -1,6 +1,6 @@
 package org.ldccc.om3.dbm
 
-import org.ldccc.om3.dto.DTO
+import org.ldccc.om3.dto.PO
 
 import java.lang.reflect.Field
 import java.lang.reflect.InvocationTargetException
@@ -8,7 +8,7 @@ import java.sql.Date
 import java.sql.*
 import java.util.*
 
-abstract class DTM<O : DTO> protected constructor(private val clazz: Class<O>, private val base: String) {
+abstract class DTM<O : PO> protected constructor(private val clazz: Class<O>, private val base: String) {
 	private val fields: Array<Field> = clazz.declaredFields
 	private val classes: Array<Class<*>>
 
@@ -65,23 +65,23 @@ abstract class DTM<O : DTO> protected constructor(private val clazz: Class<O>, p
 		return findByID(statement, sql) as O
 	}
 
-	fun findByCondition(statement: Statement): List<O> {
+	fun findWithCond(statement: Statement): List<O> {
 		val sql = "SELECT * FROM $base;"
-		return findByCondition(statement, sql) as List<O>
+		return findWithCond(statement, sql) as List<O>
 	}
 
 	fun add(statement: Statement, vararg os: O): Boolean {
-		val sql = "INSERT INTO " + base + Aide.toInsertSQL(fields, columns, *os)
+		val sql = "INSERT INTO " + base + Aide.insStatement(fields, columns, *os)
 		return add(statement, sql)
 	}
 
 	fun update(statement: Statement, o: O): Boolean {
-		val sql = "UPDATE " + base + Aide.toUpdateSQL(fields, columns, o)
+		val sql = "UPDATE " + base + Aide.updStatement(fields, columns, o)
 		return update(statement, sql)
 	}
 
 	fun delete(statement: Statement, vararg os: O): Boolean {
-		val sql = "DELETE FROM " + base + Aide.toDeleteSQL(*os)
+		val sql = "DELETE FROM " + base + Aide.delStatement(*os)
 		return delete(statement, sql)
 	}
 
@@ -97,7 +97,7 @@ abstract class DTM<O : DTO> protected constructor(private val clazz: Class<O>, p
 		}
 	}
 
-	protected fun findByCondition(statement: Statement, sql: String): List<O>? {
+	protected fun findWithCond(statement: Statement, sql: String): List<O>? {
 		return try {
 			statement.executeQuery(sql).use {
 				val os = ArrayList<O>()
