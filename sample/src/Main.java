@@ -1,9 +1,11 @@
 import constant.C;
 import dto.User;
-import org.ldccc.om3.dbm.DBManager;
 import org.ldccc.om3.dbm.Aide;
+import org.ldccc.om3.dbm.DBManager;
 
+import java.lang.reflect.Field;
 import java.sql.Date;
+import java.util.Arrays;
 import java.util.List;
 
 public class Main {
@@ -11,15 +13,20 @@ public class Main {
 	 * Sample
 	 */
 	public static void main(String[] args) {
-		C.INSTANCE.getDtu().setColumns(C.INSTANCE.getUParams());
+//		C.INSTANCE.getDtu().setColumns(C.INSTANCE.getUParams());
+
 //		getSingle();
-//		findAll();
+//		getAll();
 //		add();
 //		update();
-//		delete();
+		delete();
 
-		String s = Aide.INSTANCE.camel2snake("userName");
-		System.out.println(s);
+//		String[] ss = Arrays.stream(User.class.getDeclaredFields()).map(Main::field2column).toArray(String[]::new);
+//		System.out.println(Arrays.toString(ss));
+	}
+
+	public static String field2column(Field field) {
+		return Aide.INSTANCE.field2column(field);
 	}
 
 	/**
@@ -42,9 +49,11 @@ public class Main {
 	 * add
 	 */
 	private static void add() {
-		User user = new User("2224", "123", false, new Date(new java.util.Date().getTime()), 0);
+		User user1 = new User("sad", "123", false, new Date(new java.util.Date().getTime()), 0);
+		User user2 = new User("68", "123", false, new Date(new java.util.Date().getTime()), 0);
+		User user3 = new User("yiot", "123", false, new Date(new java.util.Date().getTime()), 0);
 		System.out.println(
-				DBManager.getSingleton().add(C.INSTANCE.getDtu(), user) ? user : "Insert failed"
+				DBManager.getSingleton().add(C.INSTANCE.getDtu(), user1, user2, user3) ? Arrays.asList(user1, user2, user3) : "Insert failed"
 		);
 	}
 
@@ -52,7 +61,7 @@ public class Main {
 	 * update
 	 */
 	private static void update() {
-		User user = DBManager.getSingleton().findById(C.INSTANCE.getDtu(), "12");
+		User user = DBManager.getSingleton().findById(C.INSTANCE.getDtu(), "22");
 		user.setAuth(true);
 		System.out.println(
 				DBManager.getSingleton().update(C.INSTANCE.getDtu(), user) ? user : "Update failed"
@@ -63,9 +72,11 @@ public class Main {
 	 * delete
 	 */
 	private static void delete() {
-		User user = DBManager.getSingleton().findById(C.INSTANCE.getDtu(), "15");
+		User user1 = DBManager.getSingleton().findById(C.INSTANCE.getDtu(), "23");
+		User user2 = DBManager.getSingleton().findById(C.INSTANCE.getDtu(), "24");
+		User user3 = DBManager.getSingleton().findById(C.INSTANCE.getDtu(), "25");
 		System.out.println(
-				DBManager.getSingleton().delete(C.INSTANCE.getDtu(), user) ? user : "Delete failed"
+				DBManager.getSingleton().delete(C.INSTANCE.getDtu(), user1, user2, user3) ? Arrays.asList(user1, user2, user3) : "Delete failed"
 		);
 	}
 }

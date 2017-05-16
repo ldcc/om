@@ -15,7 +15,7 @@ object Aide {
 	private fun concat(s1: String, s2: String) = s1 + s2
 
 	private fun trans(o: Any) = { fields: Array<Field> ->
-		{ sign: (Any) -> String -> fields.map { sign(it.get(o)) } }
+		{ sign: (Any) -> String -> fields.map { sign(it.get(o)) }.joinToString() }
 	}
 
 	private fun sign(value: Any): String {
@@ -32,13 +32,13 @@ object Aide {
 	}
 
 	fun <O : PO> updStatement(fields: Array<Field>, columns: Array<String>, o: O): String {
-		val cols: String = columns.indices.map { columns[it] + "=" + sign(fields[it].get(this)) }.joinToString()
+		val cols: String = columns.indices.map { columns[it] + "=" + sign(fields[it].get(o)) }.joinToString()
 		return " SET $cols WHERE ID=${o.id};"
 	}
 
 	fun <O : PO> delStatement(vararg os: O): String {
-		val cond: String = os.map { "WHERE ID=" + it.id }.joinToString()
-		return " WHERE ID=$cond;"
+		val cond: String = os.map { "ID=" + it.id }.joinToString("||")
+		return " WHERE $cond;"
 	}
 
 }
