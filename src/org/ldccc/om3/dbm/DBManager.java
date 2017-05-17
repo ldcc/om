@@ -14,10 +14,26 @@ public class DBManager {
 		return singleton;
 	}
 
-	public <O extends PO> O findById(DTM<O> dtm, String value) {
+	public <O extends PO> O findById(DTM<O> dtm, int id) {
+		return findBy(dtm, PO.Companion.getID(), String.valueOf(id));
+	}
+
+	public <O extends PO> O findBy(DTM<O> dtm, String column, String value) {
 		Connection conn = DBSource.getSingleton().getConnection();
 		try (Statement statement = conn.createStatement()) {
-			return dtm.findByID(statement, PO.Companion.getID(), value);
+			return dtm.findBy(statement, column, value);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			DBSource.getSingleton().closeConnection(conn);
+		}
+	}
+
+	public <O extends PO> List<O> findAll(DTM<O> dtm) {
+		Connection conn = DBSource.getSingleton().getConnection();
+		try (Statement statement = conn.createStatement()) {
+			return dtm.findAll(statement);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;
@@ -30,18 +46,6 @@ public class DBManager {
 		Connection conn = DBSource.getSingleton().getConnection();
 		try (Statement statement = conn.createStatement()) {
 			return dtm.findWithCond(statement, sql);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			return null;
-		} finally {
-			DBSource.getSingleton().closeConnection(conn);
-		}
-	}
-
-	public <O extends PO> List<O> findAll(DTM<O> dtm) {
-		Connection conn = DBSource.getSingleton().getConnection();
-		try (Statement statement = conn.createStatement()) {
-			return dtm.findWithCond(statement);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			return null;

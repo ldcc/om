@@ -19,7 +19,7 @@ public class Main {
 //		getAll();
 //		add();
 //		update();
-		delete();
+//		delete();
 
 //		String[] ss = Arrays.stream(User.class.getDeclaredFields()).map(Main::field2column).toArray(String[]::new);
 //		System.out.println(Arrays.toString(ss));
@@ -33,7 +33,7 @@ public class Main {
 	 * findById single
 	 */
 	private static void getSingle() {
-		User user = DBManager.getSingleton().findById(C.INSTANCE.getDtu(), "1");
+		User user = DBManager.getSingleton().findById(C.INSTANCE.getDtu(), 1);
 		System.out.println(user);
 	}
 
@@ -61,7 +61,7 @@ public class Main {
 	 * update
 	 */
 	private static void update() {
-		User user = DBManager.getSingleton().findById(C.INSTANCE.getDtu(), "22");
+		User user = DBManager.getSingleton().findById(C.INSTANCE.getDtu(), 22);
 		user.setAuth(true);
 		System.out.println(
 				DBManager.getSingleton().update(C.INSTANCE.getDtu(), user) ? user : "Update failed"
@@ -72,9 +72,9 @@ public class Main {
 	 * delete
 	 */
 	private static void delete() {
-		User user1 = DBManager.getSingleton().findById(C.INSTANCE.getDtu(), "23");
-		User user2 = DBManager.getSingleton().findById(C.INSTANCE.getDtu(), "24");
-		User user3 = DBManager.getSingleton().findById(C.INSTANCE.getDtu(), "25");
+		User user1 = DBManager.getSingleton().findById(C.INSTANCE.getDtu(), 23);
+		User user2 = DBManager.getSingleton().findById(C.INSTANCE.getDtu(), 24);
+		User user3 = DBManager.getSingleton().findById(C.INSTANCE.getDtu(), 25);
 		System.out.println(
 				DBManager.getSingleton().delete(C.INSTANCE.getDtu(), user1, user2, user3) ? Arrays.asList(user1, user2, user3) : "Delete failed"
 		);

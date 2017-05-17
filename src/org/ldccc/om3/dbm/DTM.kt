@@ -1,11 +1,10 @@
 package org.ldccc.om3.dbm
 
 import org.ldccc.om3.dto.PO
-
 import java.lang.reflect.Field
 import java.lang.reflect.InvocationTargetException
-import java.sql.Date
 import java.sql.*
+import java.sql.Date
 import java.util.*
 
 abstract class DTM<O : PO> protected constructor(private val clazz: Class<O>, private val base: String) {
@@ -60,14 +59,14 @@ abstract class DTM<O : PO> protected constructor(private val clazz: Class<O>, pr
 		return map
 	}
 
-	fun findByID(statement: Statement, column: String, value: String): O {
+	fun findBy(statement: Statement, column: String, value: String): O? {
 		val sql = "SELECT * FROM $base WHERE $column='$value';"
-		return findByID(statement, sql) as O
+		return findBy(statement, sql)
 	}
 
-	fun findWithCond(statement: Statement): List<O> {
+	fun findAll(statement: Statement): List<O>? {
 		val sql = "SELECT * FROM $base;"
-		return findWithCond(statement, sql) as List<O>
+		return findWithCond(statement, sql)
 	}
 
 	fun add(statement: Statement, vararg os: O): Boolean {
@@ -85,7 +84,7 @@ abstract class DTM<O : PO> protected constructor(private val clazz: Class<O>, pr
 		return delete(statement, sql)
 	}
 
-	protected fun findByID(statement: Statement, sql: String): O? {
+	protected fun findBy(statement: Statement, sql: String): O? {
 		return try {
 			statement.executeQuery(sql).use {
 				it.first()
@@ -99,11 +98,9 @@ abstract class DTM<O : PO> protected constructor(private val clazz: Class<O>, pr
 
 	protected fun findWithCond(statement: Statement, sql: String): List<O>? {
 		return try {
-			statement.executeQuery(sql).use {
-				val os = ArrayList<O>()
-				while (it.next()) os.add(getO(getMap(it, it.metaData)))
-				os
-			}
+			val os = ArrayList<O>()
+			statement.executeQuery(sql).use { while (it.next()) os.add(getO(getMap(it, it.metaData))) }
+			os
 		} catch (e: SQLException) {
 			e.printStackTrace()
 			null

@@ -5,7 +5,6 @@ import java.lang.reflect.Field
 
 
 object Aide {
-
 	fun field2column(field: Field) = camel2snake(field.name)
 
 	fun camel2snake(arg: String) = arg.toCharArray()
@@ -40,6 +39,5 @@ object Aide {
 		val cond: String = os.map { "ID=" + it.id }.joinToString("||")
 		return " WHERE $cond;"
 	}
-
 }
 
