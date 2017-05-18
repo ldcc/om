@@ -11,7 +11,7 @@ abstract class DTM<O : PO> protected constructor(private val clazz: Class<O>, pr
 	private val fields: Array<Field> = clazz.declaredFields
 	private val classes: Array<Class<*>>
 
-	var columns: Array<String>
+	public var columns: Array<String>
 
 	init {
 		columns = fields.map(Aide::field2column).toTypedArray()
@@ -86,10 +86,7 @@ abstract class DTM<O : PO> protected constructor(private val clazz: Class<O>, pr
 
 	protected fun findBy(statement: Statement, sql: String): O? {
 		return try {
-			statement.executeQuery(sql).use {
-				it.first()
-				getO(getMap(it, it.metaData))
-			}
+			statement.executeQuery(sql).use { if (it.first()) getO(getMap(it, it.metaData)) else null }
 		} catch (e: SQLException) {
 			e.printStackTrace()
 			null
