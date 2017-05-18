@@ -10,7 +10,7 @@ data class User(
 		var uPassword: String?,
 		var uEmail: String?,
 		var uPhone: String?,
-		var uActiveCode: Int?,
+		var uActiveCode: String?,
 		var uActiveStatus: Boolean? = false,
 		var uProvince: String? = "",
 		var uCity: String? = "",
@@ -21,7 +21,7 @@ data class User(
 		var uCreateDate: Date? = Date(java.util.Date().time)
 ) : PO(id) {
 	constructor() : this(0, null, null, null, null, null)
-	constructor(name: String, password: String, email: String, phone: String, actCode: Int) : this(0, name, password, email, phone, actCode)
+	constructor(name: String, password: String, email: String, phone: String, actCode: String) : this(0, name, password, email, phone, actCode)
 }
 
 class DTUser<O : PO> constructor(tClass: Class<O>, base: String) : DTM<O>(tClass, base)

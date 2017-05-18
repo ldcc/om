@@ -17,7 +17,7 @@ object Aide {
 		{ sign: (Any) -> String -> fields.map { sign(it.get(o)) }.joinToString() }
 	}
 
-	private fun sign(value: Any): String {
+	fun sign(value: Any): String {
 		return when (value) {
 			is Boolean, is Int, is Long -> value.toString()
 			else -> "\'" + value + "\'"

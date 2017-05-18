@@ -11,7 +11,7 @@ abstract class DTM<O : PO> protected constructor(private val clazz: Class<O>, pr
 	private val fields: Array<Field> = clazz.declaredFields
 	private val classes: Array<Class<*>>
 
-	public var columns: Array<String>
+	var columns: Array<String>
 
 	init {
 		columns = fields.map(Aide::field2column).toTypedArray()
@@ -60,7 +60,8 @@ abstract class DTM<O : PO> protected constructor(private val clazz: Class<O>, pr
 	}
 
 	fun findBy(statement: Statement, column: String, value: String): O? {
-		val sql = "SELECT * FROM $base WHERE $column='$value';"
+		val sql = "SELECT * FROM $base WHERE $column=${Aide.sign(value)};"
+		println(sql)
 		return findBy(statement, sql)
 	}
 

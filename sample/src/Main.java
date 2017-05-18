@@ -15,9 +15,9 @@ public class Main {
 	public static void main(String[] args) {
 //		C.INSTANCE.getDtu().setColumns(C.INSTANCE.getUParams());
 
-//		getSingle();
+		getSingle();
 //		getAll();
-		add();
+//		add();
 //		update();
 //		delete();
 	}
@@ -30,8 +30,10 @@ public class Main {
 	 * findById single
 	 */
 	private static void getSingle() {
-		User user = DBManager.getSingleton().findById(C.INSTANCE.getDtu(), 1);
-		System.out.println(user);
+		User user1 = DBManager.getSingleton().findById(C.INSTANCE.getDtu(), 3);
+		User user2 = DBManager.getSingleton().findBy(C.INSTANCE.getDtu(), "u_name", "scala");
+		System.out.println(user1);
+		System.out.println(user2);
 	}
 
 	/**
