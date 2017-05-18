@@ -17,12 +17,9 @@ public class Main {
 
 //		getSingle();
 //		getAll();
-//		add();
+		add();
 //		update();
 //		delete();
-
-//		String[] ss = Arrays.stream(User.class.getDeclaredFields()).map(Main::field2column).toArray(String[]::new);
-//		System.out.println(Arrays.toString(ss));
 	}
 
 	public static String field2column(Field field) {
@@ -49,11 +46,9 @@ public class Main {
 	 * add
 	 */
 	private static void add() {
-		User user1 = new User("sad", "123", false, new Date(new java.util.Date().getTime()), 0);
-		User user2 = new User("68", "123", false, new Date(new java.util.Date().getTime()), 0);
-		User user3 = new User("yiot", "123", false, new Date(new java.util.Date().getTime()), 0);
+		User user1 = new User(0, "haskell", "suckhaskell", "asd@asd", "12145411321", null, false, "", "", "", false, false, new Date(new java.util.Date().getTime()), new Date(new java.util.Date().getTime()));
 		System.out.println(
-				DBManager.getSingleton().add(C.INSTANCE.getDtu(), user1, user2, user3) ? Arrays.asList(user1, user2, user3) : "Insert failed"
+				DBManager.getSingleton().add(C.INSTANCE.getDtu(), user1) ? user1 : "Insert failed"
 		);
 	}
 
@@ -62,7 +57,7 @@ public class Main {
 	 */
 	private static void update() {
 		User user = DBManager.getSingleton().findById(C.INSTANCE.getDtu(), 22);
-		user.setAuth(true);
+		user.setUActiveStatus(true);
 		System.out.println(
 				DBManager.getSingleton().update(C.INSTANCE.getDtu(), user) ? user : "Update failed"
 		);

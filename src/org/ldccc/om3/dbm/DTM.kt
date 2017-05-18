@@ -108,7 +108,7 @@ abstract class DTM<O : PO> protected constructor(private val clazz: Class<O>, pr
 		return try {
 			statement.executeUpdate(sql) != 0
 		} catch (e: SQLException) {
-			System.err.println("\nuser name is already used\n")
+			System.err.println("\ndatabase column name or value do not matches\n")
 			e.printStackTrace()
 			false
 		}
