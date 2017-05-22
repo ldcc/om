@@ -27,19 +27,16 @@ object Aide {
 	fun <O : PO> insStatement(fields: Array<Field>, columns: Array<String>, vararg os: O): String {
 		val cols: String = columns.joinToString()
 		val cond: String = os.map { "(" + trans(it)(fields)(Aide::sign) + ")" }.joinToString()
-		println(cond)
 		return "($cols)VALUES$cond;"
 	}
 
 	fun <O : PO> updStatement(fields: Array<Field>, columns: Array<String>, o: O): String {
 		val cols: String = columns.indices.map { columns[it] + "=" + sign(fields[it].get(o)) }.joinToString()
-		println(cols)
 		return " SET $cols WHERE ID=${o.id};"
 	}
 
 	fun <O : PO> delStatement(vararg os: O): String {
 		val cond: String = os.map { "ID=" + it.id }.joinToString("||")
-		println(cond)
 		return " WHERE $cond;"
 	}
 }

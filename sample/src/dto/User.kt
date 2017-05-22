@@ -24,8 +24,7 @@ data class User(
 	constructor(name: String, password: String, email: String, phone: String, actCode: String) : this(0, name, password, email, phone, actCode)
 }
 
-class DTUser<O : PO> constructor(tClass: Class<O>, base: String) : DTM<O>(tClass, base)
-
+class DTU<O : PO> constructor(tClass: Class<O>, base: String) : DTM<O>(tClass, base)
 
 
 

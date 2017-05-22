@@ -2,41 +2,23 @@ package org.ldccc.om3.dbm
 
 import org.ldccc.om3.dto.PO
 import java.lang.reflect.Field
-import java.lang.reflect.InvocationTargetException
 import java.sql.*
 import java.sql.Date
 import java.util.*
 
-abstract class DTM<O : PO> protected constructor(private val clazz: Class<O>, private val base: String) {
-	private val fields: Array<Field> = clazz.declaredFields
-	private val classes: Array<Class<*>>
-
-	var columns: Array<String>
+open class DTM<O : PO> protected constructor(protected val clazz: Class<O>, private val base: String) {
+	protected val fields: Array<Field> = clazz.declaredFields
+	protected var columns: Array<String>
 
 	init {
 		columns = fields.map(Aide::field2column).toTypedArray()
-		classes = fields.map(Field::getType).toTypedArray()
 		fields.forEach { it.isAccessible = true }
 	}
 
-	private fun getO(map: Map<String, Any>): O {
-		return try {
-			clazz.getConstructor(*classes).newInstance(
-					*columns.map(map::get).toTypedArray()
-			)
-		} catch (e: InstantiationException) {
-			e.printStackTrace()
-			clazz.newInstance()
-		} catch (e: IllegalAccessException) {
-			e.printStackTrace()
-			clazz.newInstance()
-		} catch (e: NoSuchMethodException) {
-			e.printStackTrace()
-			clazz.newInstance()
-		} catch (e: InvocationTargetException) {
-			e.printStackTrace()
-			clazz.newInstance()
-		}
+	protected open fun getO(map: Map<String, Any>): O {
+		val o: O = clazz.newInstance()
+		fields.indices.forEach { fields[it].set(o, map[columns[it]]) }
+		return o
 	}
 
 	@Throws(SQLException::class)
@@ -59,33 +41,37 @@ abstract class DTM<O : PO> protected constructor(private val clazz: Class<O>, pr
 		return map
 	}
 
-	fun findBy(statement: Statement, column: String, value: String): O? {
+	protected open fun findBy(statement: Statement, column: String, value: String): O? {
 		val sql = "SELECT * FROM $base WHERE $column=${Aide.sign(value)};"
 		println(sql)
 		return findBy(statement, sql)
 	}
 
-	fun findAll(statement: Statement): List<O>? {
+	protected open fun findAll(statement: Statement): List<O>? {
 		val sql = "SELECT * FROM $base;"
+		println(sql)
 		return findWithCond(statement, sql)
 	}
 
-	fun add(statement: Statement, vararg os: O): Boolean {
+	protected open fun add(statement: Statement, vararg os: O): Boolean {
 		val sql = "INSERT INTO " + base + Aide.insStatement(fields, columns, *os)
+		println(sql)
 		return add(statement, sql)
 	}
 
-	fun update(statement: Statement, o: O): Boolean {
+	protected open fun update(statement: Statement, o: O): Boolean {
 		val sql = "UPDATE " + base + Aide.updStatement(fields, columns, o)
+		println(sql)
 		return update(statement, sql)
 	}
 
-	fun delete(statement: Statement, vararg os: O): Boolean {
+	protected open fun delete(statement: Statement, vararg os: O): Boolean {
 		val sql = "DELETE FROM " + base + Aide.delStatement(*os)
+		println(sql)
 		return delete(statement, sql)
 	}
 
-	protected fun findBy(statement: Statement, sql: String): O? {
+	protected open fun findBy(statement: Statement, sql: String): O? {
 		return try {
 			statement.executeQuery(sql).use { if (it.first()) getO(getMap(it, it.metaData)) else null }
 		} catch (e: SQLException) {
@@ -94,7 +80,7 @@ abstract class DTM<O : PO> protected constructor(private val clazz: Class<O>, pr
 		}
 	}
 
-	protected fun findWithCond(statement: Statement, sql: String): List<O>? {
+	protected open fun findWithCond(statement: Statement, sql: String): List<O>? {
 		return try {
 			val os = ArrayList<O>()
 			statement.executeQuery(sql).use { while (it.next()) os.add(getO(getMap(it, it.metaData))) }
@@ -105,7 +91,7 @@ abstract class DTM<O : PO> protected constructor(private val clazz: Class<O>, pr
 		}
 	}
 
-	protected fun add(statement: Statement, sql: String): Boolean {
+	protected open fun add(statement: Statement, sql: String): Boolean {
 		return try {
 			statement.executeUpdate(sql) != 0
 		} catch (e: SQLException) {
@@ -115,7 +101,7 @@ abstract class DTM<O : PO> protected constructor(private val clazz: Class<O>, pr
 		}
 	}
 
-	protected fun update(statement: Statement, sql: String): Boolean {
+	protected open fun update(statement: Statement, sql: String): Boolean {
 		return try {
 			statement.executeUpdate(sql) != 0
 		} catch (e: SQLException) {
@@ -124,7 +110,7 @@ abstract class DTM<O : PO> protected constructor(private val clazz: Class<O>, pr
 		}
 	}
 
-	protected fun delete(statement: Statement, sql: String): Boolean {
+	protected open fun delete(statement: Statement, sql: String): Boolean {
 		return try {
 			statement.executeUpdate(sql) != 0
 		} catch (e: SQLException) {
@@ -132,12 +118,13 @@ abstract class DTM<O : PO> protected constructor(private val clazz: Class<O>, pr
 			false
 		}
 	}
-}
 
-fun <O> ResultSet.use(block: (ResultSet) -> O): O? {
-	return try {
-		block(this)
-	} finally {
-		this.close()
+	private fun <O> ResultSet.use(block: (ResultSet) -> O): O? {
+		return try {
+			block(this)
+		} finally {
+			this.close()
+		}
 	}
+
 }

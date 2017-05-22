@@ -1,5 +1,6 @@
 import constant.C;
 import dto.User;
+import org.ldcc.martin.dto.Good;
 import org.ldccc.om3.dbm.Aide;
 import org.ldccc.om3.dbm.DBManager;
 
@@ -15,11 +16,17 @@ public class Main {
 	public static void main(String[] args) {
 //		C.INSTANCE.getDtu().setColumns(C.INSTANCE.getUParams());
 
-		getSingle();
+//		getSingle();
 //		getAll();
 //		add();
 //		update();
 //		delete();
+		multable();
+	}
+
+	private static void multable() {
+		Good good1 = DBManager.getSingleton().findById(C.INSTANCE.getDtg(), 1);
+		System.out.println(good1);
 	}
 
 	public static String field2column(Field field) {
