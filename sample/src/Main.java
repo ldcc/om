@@ -25,7 +25,7 @@ public class Main {
 	}
 
 	private static void multable() {
-		Good good1 = DBManager.getSingleton().findById(C.INSTANCE.getDtg(), 1);
+		Good good1 = DBManager.getSingleton().findById(C.INSTANCE.getDtg(), 2);
 		System.out.println(good1);
 	}
 

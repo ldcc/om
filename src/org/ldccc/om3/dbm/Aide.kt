@@ -13,10 +13,6 @@ object Aide {
 
 	private fun concat(s1: String, s2: String) = s1 + s2
 
-	private fun trans(o: Any) = { fields: Array<Field> ->
-		{ sign: (Any) -> String -> fields.map { sign(it.get(o)) }.joinToString() }
-	}
-
 	fun sign(value: Any): String {
 		return when (value) {
 			is Boolean, is Int, is Long -> value.toString()
@@ -24,9 +20,13 @@ object Aide {
 		}
 	}
 
+	fun bulrStatement(base: String, column: String, condition: String): String {
+		return "SELECT * FROM $base WHERE $column LIKE '%$condition%'"
+	}
+
 	fun <O : PO> insStatement(fields: Array<Field>, columns: Array<String>, vararg os: O): String {
 		val cols: String = columns.joinToString()
-		val cond: String = os.map { "(" + trans(it)(fields)(Aide::sign) + ")" }.joinToString()
+		val cond: String = os.map { o -> "(" + fields.map { sign(it.get(o)) }.joinToString() + ")" }.joinToString()
 		return "($cols)VALUES$cond;"
 	}
 
