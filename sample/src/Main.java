@@ -28,7 +28,7 @@ public class Main {
 	}
 
 	private static void blurriness() {
-		String sql = Aide.INSTANCE.bulrStatement(".e_good", new String[]{"g_title", "gt_code"}, new String[]{"", ""});
+		String sql = Aide.INSTANCE.blurStatement(".e_good", new String[]{"g_title", "gt_code"}, new String[]{"", ""});
 		List<Good> goods = DBManager.getSingleton().findWithCond(C.INSTANCE.getDtg(), sql);
 		System.out.println(goods);
 	}

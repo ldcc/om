@@ -18,8 +18,13 @@ object Aide {
 		}
 	}
 
-	fun bulrStatement(base: String, columns: Array<String>, conds: Array<String>): String {
+	fun blurStatement(base: String, columns: Array<String>, conds: Array<String>): String {
 		val cond = columns.indices.map { columns[it] + " LIKE '%" + conds[it] + "%'" }.joinToString(" && ")
+		return "SELECT * FROM $base WHERE $cond"
+	}
+
+	fun regStatement(base: String, columns: Array<String>, regs: Array<String>): String {
+		val cond = columns.indices.map { columns[it] + " REGEXP '.*" + regs[it] + ".*'" }.joinToString(" && ")
 		return "SELECT * FROM $base WHERE $cond"
 	}
 
@@ -35,7 +40,7 @@ object Aide {
 				when {
 					it is PO -> o.boxing(it)
 					it != null -> columns[i] + "=" + sign(it)
-					else -> ""
+					else -> columns[i] + "=''"
 				}
 			}
 		}.joinToString()

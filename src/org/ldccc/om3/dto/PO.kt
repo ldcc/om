@@ -33,7 +33,7 @@ open class PO(open var id: Int) {
 		val ID: String = "ID"
 	}
 
-	open fun <O : PO> boxing(o: O): String{
+	open fun <O : PO> boxing(o: O): Any{
 		return ""
 	}
 }

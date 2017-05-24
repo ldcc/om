@@ -22,10 +22,10 @@ data class Good(
 ) : PO(id) {
 	constructor() : this(0, null, null, null, null, null, null, null, null, null)
 
-	override fun <O : PO> boxing(o: O): String {
+	override fun <O : PO> boxing(o: O): Any {
 		return when (o) {
-			is GoodType -> "gt_code=" + Aide.sign(o.gtCode as String)
-			else -> "gt_code" + "" + ""
+			is GoodType -> "gt_type=" + Aide.sign(o.gtCode as String)
+			else -> "gt_type=''"
 		}
 	}
 }
