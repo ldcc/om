@@ -35,7 +35,6 @@ enum class U {
 	u_create_date,
 }
 
-enum class G{}
 
 enum class GT{
 	gt_code,

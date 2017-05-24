@@ -23,11 +23,18 @@ public class Main {
 //		update();
 //		delete();
 //		multable();
-		multableupd();
+//		multableupd();
+		blurriness();
+	}
+
+	private static void blurriness() {
+		String sql = Aide.INSTANCE.bulrStatement(".e_good", new String[]{"g_title", "gt_code"}, new String[]{"", ""});
+		List<Good> goods = DBManager.getSingleton().findWithCond(C.INSTANCE.getDtg(), sql);
+		System.out.println(goods);
 	}
 
 	private static void multableupd() {
-		Good good1 = new Good(2, "", "", 4899.0, 4789.0, 100, "", "", new GoodType("","",""), new Date(new java.util.Date().getTime()));
+		Good good1 = new Good(2, "", "", 4899.0, 4789.0, 100, "", "", new GoodType("", "", ""), new Date(new java.util.Date().getTime()));
 		System.out.println(good1);
 		DBManager.getSingleton().update(C.INSTANCE.getDtg(), good1);
 		System.out.println(good1);

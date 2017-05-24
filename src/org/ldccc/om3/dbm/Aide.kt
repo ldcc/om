@@ -18,8 +18,9 @@ object Aide {
 		}
 	}
 
-	fun bulrStatement(base: String, column: String, condition: String): String {
-		return "SELECT * FROM $base WHERE $column LIKE '%$condition%'"
+	fun bulrStatement(base: String, columns: Array<String>, conds: Array<String>): String {
+		val cond = columns.indices.map { columns[it] + " LIKE '%" + conds[it] + "%'" }.joinToString(" && ")
+		return "SELECT * FROM $base WHERE $cond"
 	}
 
 	fun <O : PO> insStatement(fields: Array<Field>, columns: Array<String>, vararg os: O): String {

@@ -43,35 +43,31 @@ open class DTM<O : PO> protected constructor(protected val clazz: Class<O>, priv
 
 	protected open fun findBy(statement: Statement, column: String, value: String): O? {
 		val sql = "SELECT * FROM $base WHERE $column=${Aide.sign(value)};"
-		println(sql)
 		return findBy(statement, sql)
 	}
 
 	protected open fun findAll(statement: Statement): List<O>? {
 		val sql = "SELECT * FROM $base;"
-		println(sql)
 		return findWithCond(statement, sql)
 	}
 
 	protected open fun add(statement: Statement, vararg os: O): Boolean {
 		val sql = "INSERT INTO " + base + Aide.insStatement(fields, columns, *os)
-		println(sql)
 		return add(statement, sql)
 	}
 
 	protected open fun update(statement: Statement, o: O): Boolean {
 		val sql = "UPDATE " + base + Aide.updStatement(fields, columns, o)
-		println(sql)
 		return update(statement, sql)
 	}
 
 	protected open fun delete(statement: Statement, vararg os: O): Boolean {
 		val sql = "DELETE FROM " + base + Aide.delStatement(*os)
-		println(sql)
 		return delete(statement, sql)
 	}
 
 	protected open fun findBy(statement: Statement, sql: String): O? {
+		println(sql)
 		return try {
 			statement.executeQuery(sql).use { if (it.first()) getO(getMap(it, it.metaData)) else null }
 		} catch (e: SQLException) {
@@ -81,6 +77,7 @@ open class DTM<O : PO> protected constructor(protected val clazz: Class<O>, priv
 	}
 
 	protected open fun findWithCond(statement: Statement, sql: String): List<O>? {
+		println(sql)
 		return try {
 			val os = ArrayList<O>()
 			statement.executeQuery(sql).use { while (it.next()) os.add(getO(getMap(it, it.metaData))) }
@@ -92,6 +89,7 @@ open class DTM<O : PO> protected constructor(protected val clazz: Class<O>, priv
 	}
 
 	protected open fun add(statement: Statement, sql: String): Boolean {
+		println(sql)
 		return try {
 			statement.executeUpdate(sql) != 0
 		} catch (e: SQLException) {
@@ -102,6 +100,7 @@ open class DTM<O : PO> protected constructor(protected val clazz: Class<O>, priv
 	}
 
 	protected open fun update(statement: Statement, sql: String): Boolean {
+		println(sql)
 		return try {
 			statement.executeUpdate(sql) != 0
 		} catch (e: SQLException) {
@@ -111,6 +110,7 @@ open class DTM<O : PO> protected constructor(protected val clazz: Class<O>, priv
 	}
 
 	protected open fun delete(statement: Statement, sql: String): Boolean {
+		println(sql)
 		return try {
 			statement.executeUpdate(sql) != 0
 		} catch (e: SQLException) {
