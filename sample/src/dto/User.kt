@@ -15,10 +15,8 @@ data class User(
 		var uProvince: String? = "",
 		var uCity: String? = "",
 		var uAddress: String? = "",
-		var uSex: Boolean? = false,
 		var uRole: Boolean? = false,
-		var uBirthday: Date? = Date(java.util.Date().time),
-		var uCreateDate: Date? = Date(java.util.Date().time)
+		var uBirthday: Date? = Date(java.util.Date().time)
 ) : PO(id) {
 	constructor() : this(0, null, null, null, null, null)
 	constructor(name: String, password: String, email: String, phone: String, actCode: String) : this(0, name, password, email, phone, actCode)

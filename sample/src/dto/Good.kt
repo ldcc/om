@@ -2,6 +2,7 @@ package org.ldcc.martin.dto
 
 import constant.C.dtgt
 import constant.GT
+import org.ldccc.om3.dbm.Aide
 import org.ldccc.om3.dbm.DBManager
 import org.ldccc.om3.dbm.DTM
 import org.ldccc.om3.dto.PO
@@ -19,7 +20,14 @@ data class Good(
 		var goodsType: GoodType?,
 		var gGroundingDate: Date?
 ) : PO(id) {
-	constructor():this(0,null,null,null,null,null,null,null,null,null)
+	constructor() : this(0, null, null, null, null, null, null, null, null, null)
+
+	override fun <O : PO> boxing(o: O): String {
+		return when (o) {
+			is GoodType -> "gt_code=" + Aide.sign(o.gtCode as String)
+			else -> "gt_code" + "" + ""
+		}
+	}
 }
 
 class DTG<O : PO> constructor(tClass: Class<O>, base: String) : DTM<O>(tClass, base) {

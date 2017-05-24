@@ -7,9 +7,7 @@ import java.lang.reflect.Field
 object Aide {
 	fun field2column(field: Field) = camel2snake(field.name)
 
-	fun camel2snake(arg: String) = arg.toCharArray()
-			.map { if (it.isUpperCase().not()) it.toString() else "_" + it.toLowerCase().toString() }
-			.reduce(Aide::concat)
+	fun camel2snake(arg: String) = arg.toCharArray().map { if (it.isUpperCase().not()) it.toString() else "_" + it.toLowerCase().toString() }.reduce(Aide::concat)
 
 	private fun concat(s1: String, s2: String) = s1 + s2
 
@@ -31,7 +29,15 @@ object Aide {
 	}
 
 	fun <O : PO> updStatement(fields: Array<Field>, columns: Array<String>, o: O): String {
-		val cols: String = columns.indices.map { columns[it] + "=" + sign(fields[it].get(o)) }.joinToString()
+		val cols: String = columns.indices.map { i ->
+			fields[i].get(o).let {
+				when {
+					it is PO -> o.boxing(it)
+					it != null -> columns[i] + "=" + sign(it)
+					else -> ""
+				}
+			}
+		}.joinToString()
 		return " SET $cols WHERE ID=${o.id};"
 	}
 
@@ -39,5 +45,6 @@ object Aide {
 		val cond: String = os.map { "ID=" + it.id }.joinToString("||")
 		return " WHERE $cond;"
 	}
+
 }
 

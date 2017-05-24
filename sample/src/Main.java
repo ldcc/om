@@ -1,6 +1,7 @@
 import constant.C;
 import dto.User;
 import org.ldcc.martin.dto.Good;
+import org.ldcc.martin.dto.GoodType;
 import org.ldccc.om3.dbm.Aide;
 import org.ldccc.om3.dbm.DBManager;
 
@@ -21,7 +22,15 @@ public class Main {
 //		add();
 //		update();
 //		delete();
-		multable();
+//		multable();
+		multableupd();
+	}
+
+	private static void multableupd() {
+		Good good1 = new Good(2, "", "", 4899.0, 4789.0, 100, "", "", new GoodType("","",""), new Date(new java.util.Date().getTime()));
+		System.out.println(good1);
+		DBManager.getSingleton().update(C.INSTANCE.getDtg(), good1);
+		System.out.println(good1);
 	}
 
 	private static void multable() {
@@ -55,7 +64,7 @@ public class Main {
 	 * add
 	 */
 	private static void add() {
-		User user1 = new User(0, "haskell", "suckhaskell", "asd@asd", "12145411321", null, false, "", "", "", false, false, new Date(new java.util.Date().getTime()), new Date(new java.util.Date().getTime()));
+		User user1 = new User(0, "haskell", "suckhaskell", "asd@asd", "12145411321", null, false, "", "", "", false, new Date(new java.util.Date().getTime()));
 		System.out.println(
 				DBManager.getSingleton().add(C.INSTANCE.getDtu(), user1) ? user1 : "Insert failed"
 		);
@@ -65,7 +74,7 @@ public class Main {
 	 * update
 	 */
 	private static void update() {
-		User user = DBManager.getSingleton().findById(C.INSTANCE.getDtu(), 22);
+		User user = DBManager.getSingleton().findById(C.INSTANCE.getDtu(), 2);
 		user.setUActiveStatus(true);
 		System.out.println(
 				DBManager.getSingleton().update(C.INSTANCE.getDtu(), user) ? user : "Update failed"
