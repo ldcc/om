@@ -2,6 +2,7 @@ import constant.C;
 import dto.User;
 import org.ldcc.martin.dto.Good;
 import org.ldcc.martin.dto.GoodType;
+import org.ldcc.martin.dto.Order;
 import org.ldccc.om3.dbm.Aide;
 import org.ldccc.om3.dbm.DBManager;
 
@@ -24,7 +25,14 @@ public class Main {
 //		delete();
 //		multable();
 //		multableupd();
-		blurriness();
+//		blurriness();
+		orderTest();
+	}
+
+	private static void orderTest() {
+		String sql = Aide.INSTANCE.blurStatement(".e_order", new String[]{"o_code"}, new String[]{""});
+		List<Order> orders =  DBManager.getSingleton().findWithCond(C.INSTANCE.getDtor(), sql);
+		System.out.println(orders);
 	}
 
 	private static void blurriness() {

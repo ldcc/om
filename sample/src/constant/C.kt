@@ -2,24 +2,26 @@ package constant
 
 import dto.DTU
 import dto.User
-import org.ldcc.martin.dto.DTG
-import org.ldcc.martin.dto.DTGoodType
-import org.ldcc.martin.dto.Good
-import org.ldcc.martin.dto.GoodType
+import org.ldcc.martin.dto.*
 
 object C {
+
+	val ID = "id"
 	val USER_BASE = ".e_user"
 	val GOOD_BASE = ".e_good"
+	val ORDER_BASE = ".e_order"
+	val OG_ITEM_BASE = ".e_og_item"
 	val GOOD_TYPE_BASE = ".e_good_type"
 
 	val dtu: DTU<User> = DTU(User::class.java, USER_BASE)
 	val dtg: DTG<Good> = DTG(Good::class.java, GOOD_BASE)
+	val dtor: DTOR<Order> = DTOR(Order::class.java, ORDER_BASE)
+//	val dtogi: DTOGI<OGItem> = DTOGI(OGItem::class.java, OG_ITEM_BASE)
 	val dtgt: DTGoodType<GoodType> = DTGoodType(GoodType::class.java, GOOD_TYPE_BASE)
 
 }
 
 enum class U {
-	id,
 	u_name,
 	u_password,
 	u_email,

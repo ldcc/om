@@ -24,7 +24,7 @@ object Aide {
 	}
 
 	fun regStatement(base: String, columns: Array<String>, regs: Array<String>): String {
-		val cond = columns.indices.map { columns[it] + " REGEXP '.*" + regs[it] + ".*'" }.joinToString(" && ")
+		val cond = columns.indices.map { columns[it] + " REGEXP '" + regs[it] + "'" }.joinToString(" && ")
 		return "SELECT * FROM $base WHERE $cond"
 	}
 
