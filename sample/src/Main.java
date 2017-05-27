@@ -1,13 +1,14 @@
 import constant.C;
 import dto.User;
-import org.ldcc.martin.dto.Good;
-import org.ldcc.martin.dto.GoodType;
+import dto.Good;
+import org.ldcc.martin.dto.GType;
 import org.ldcc.martin.dto.Order;
 import org.ldccc.om3.dbm.Aide;
 import org.ldccc.om3.dbm.DBManager;
 
 import java.lang.reflect.Field;
 import java.sql.Date;
+import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
 
@@ -26,12 +27,33 @@ public class Main {
 //		multable();
 //		multableupd();
 //		blurriness();
-		orderTest();
+//		orderTest();
+//		saveOrder();
+		partGood();
+	}
+
+	private static void partGood() {
+		String sql = Aide.INSTANCE.regStatement(".e_good", new String[]{"gt_code"}, new String[]{"0001" + "[0-9]{4}"});
+		List<Good> goods = DBManager.getSingleton().findWithCond(C.INSTANCE.getDtg(), sql);
+		System.out.println(goods);
+	}
+
+
+	public static void saveOrder() {
+		final User user = DBManager.getSingleton().findById(C.INSTANCE.getDtu(), 4);
+		final Order order = new Order(
+				"kgsdkjlfh4565464f",
+				new Timestamp(new java.util.Date().getTime()),
+				656546546.4,
+				user
+		);
+//		System.out.println(order);
+		DBManager.getSingleton().add(C.INSTANCE.getDtor(), order);
 	}
 
 	private static void orderTest() {
 		String sql = Aide.INSTANCE.blurStatement(".e_order", new String[]{"o_code"}, new String[]{""});
-		List<Order> orders =  DBManager.getSingleton().findWithCond(C.INSTANCE.getDtor(), sql);
+		List<Order> orders = DBManager.getSingleton().findWithCond(C.INSTANCE.getDtor(), sql);
 		System.out.println(orders);
 	}
 
@@ -42,7 +64,7 @@ public class Main {
 	}
 
 	private static void multableupd() {
-		Good good1 = new Good(2, "", "", 4899.0, 4789.0, 100, "", "", new GoodType("", "", ""), new Date(new java.util.Date().getTime()));
+		Good good1 = new Good(15, "", "", 4899.0, 4789.0, 100, "", "", new Date(new java.util.Date().getTime()),new GType("", "", ""));
 		System.out.println(good1);
 		DBManager.getSingleton().update(C.INSTANCE.getDtg(), good1);
 		System.out.println(good1);

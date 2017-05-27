@@ -17,7 +17,11 @@ open class DTM<O : PO> protected constructor(protected val clazz: Class<O>, priv
 
 	protected open fun getO(map: Map<String, Any>): O {
 		val o: O = clazz.newInstance()
-		fields.indices.forEach { fields[it].set(o, map[columns[it]]) }
+		fields.indices.forEach {
+			fields[it].apply {
+				if (this.get(o) !is PO) this.set(o, map[columns[it]])
+			}
+		}
 		return o
 	}
 
@@ -51,8 +55,8 @@ open class DTM<O : PO> protected constructor(protected val clazz: Class<O>, priv
 		return findWithCond(statement, sql)
 	}
 
-	protected open fun add(statement: Statement, vararg os: O): Boolean {
-		val sql = "INSERT INTO " + base + Aide.insStatement(fields, columns, *os)
+	protected open fun add(statement: Statement, o: O): Boolean {
+		val sql = "INSERT INTO " + base + Aide.insStatement(fields, columns, o)
 		return add(statement, sql)
 	}
 

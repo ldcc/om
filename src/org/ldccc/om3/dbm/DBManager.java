@@ -54,8 +54,7 @@ public class DBManager {
 		}
 	}
 
-	@SafeVarargs
-	public final <O extends PO> boolean add(DTM<O> dtm, O... o) {
+	public final <O extends PO> boolean add(DTM<O> dtm, O o) {
 		Connection conn = DBSource.getSingleton().getConnection();
 		try (Statement statement = conn.createStatement()) {
 			return dtm.add(statement, o);

@@ -28,19 +28,27 @@ object Aide {
 		return "SELECT * FROM $base WHERE $cond"
 	}
 
-	fun <O : PO> insStatement(fields: Array<Field>, columns: Array<String>, vararg os: O): String {
+	fun <O : PO> insStatement(fields: Array<Field>, columns: Array<String>, o: O): String {
 		val cols: String = columns.joinToString()
-		val cond: String = os.map { o -> "(" + fields.map { sign(it.get(o)) }.joinToString() + ")" }.joinToString()
-		return "($cols)VALUES$cond;"
+		val cond: String = fields.map {
+			it.get(o).let {
+				when {
+					it is PO -> o.boxing(it)
+					it != null -> sign(it)
+					else -> "null"
+				}
+			}
+		}.joinToString()
+		return "($cols)VALUES($cond);"
 	}
 
 	fun <O : PO> updStatement(fields: Array<Field>, columns: Array<String>, o: O): String {
 		val cols: String = columns.indices.map { i ->
 			fields[i].get(o).let {
-				when {
+				columns[i] + "=" + when {
 					it is PO -> o.boxing(it)
-					it != null -> columns[i] + "=" + sign(it)
-					else -> columns[i] + "=''"
+					it != null -> sign(it)
+					else -> "null"
 				}
 			}
 		}.joinToString()
@@ -50,6 +58,10 @@ object Aide {
 	fun <O : PO> delStatement(vararg os: O): String {
 		val cond: String = os.map { "ID=" + it.id }.joinToString("||")
 		return " WHERE $cond;"
+	}
+
+	fun `aaaaaa`(a:Int): Nothing {
+		while (true) {}
 	}
 
 }

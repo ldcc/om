@@ -1,8 +1,13 @@
 package constant
 
+import dto.DTG
 import dto.DTU
+import dto.Good
 import dto.User
-import org.ldcc.martin.dto.*
+import org.ldcc.martin.dto.DTGoodType
+import org.ldcc.martin.dto.DTOR
+import org.ldcc.martin.dto.GType
+import org.ldcc.martin.dto.Order
 
 object C {
 
@@ -16,8 +21,8 @@ object C {
 	val dtu: DTU<User> = DTU(User::class.java, USER_BASE)
 	val dtg: DTG<Good> = DTG(Good::class.java, GOOD_BASE)
 	val dtor: DTOR<Order> = DTOR(Order::class.java, ORDER_BASE)
-//	val dtogi: DTOGI<OGItem> = DTOGI(OGItem::class.java, OG_ITEM_BASE)
-	val dtgt: DTGoodType<GoodType> = DTGoodType(GoodType::class.java, GOOD_TYPE_BASE)
+	//	val dtogi: DTOGI<OGItem> = DTOGI(OGItem::class.java, OG_ITEM_BASE)
+	val DTGT: DTGoodType<GType> = DTGoodType(GType::class.java, GOOD_TYPE_BASE)
 
 }
 
@@ -38,7 +43,7 @@ enum class U {
 }
 
 
-enum class GT{
+enum class GT {
 	gt_code,
 	gt_name,
 	gt_remark,
