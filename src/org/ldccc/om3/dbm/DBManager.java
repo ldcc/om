@@ -30,6 +30,18 @@ public class DBManager {
 		}
 	}
 
+	public <O extends PO> List<O> findsBy(DTM<O> dtm, String column, String value) {
+		Connection conn = DBSource.getSingleton().getConnection();
+		try (Statement statement = conn.createStatement()) {
+			return dtm.findsBy(statement, column, value);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return null;
+		} finally {
+			DBSource.getSingleton().closeConnection(conn);
+		}
+	}
+
 	public <O extends PO> List<O> findAll(DTM<O> dtm) {
 		Connection conn = DBSource.getSingleton().getConnection();
 		try (Statement statement = conn.createStatement()) {

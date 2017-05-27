@@ -50,6 +50,11 @@ open class DTM<O : PO> protected constructor(protected val clazz: Class<O>, priv
 		return findBy(statement, sql)
 	}
 
+	protected open fun findsBy(statement: Statement, column: String, value: String): List<O>? {
+		val sql = "SELECT * FROM $base WHERE $column=${Aide.sign(value)};"
+		return findWithCond(statement, sql)
+	}
+
 	protected open fun findAll(statement: Statement): List<O>? {
 		val sql = "SELECT * FROM $base;"
 		return findWithCond(statement, sql)
