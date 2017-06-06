@@ -1,10 +1,9 @@
-package org.ldcc.martin.dto
+package dto
 
 import constant.C
-import dto.User
 import org.ldccc.om3.dbm.Aide
-import org.ldccc.om3.dbm.DBManager
-import org.ldccc.om3.dbm.DTM
+import org.ldccc.om3.dbm.OMer
+import org.ldccc.om3.dbm.OM
 import org.ldccc.om3.dto.PO
 import java.sql.Timestamp
 
@@ -29,10 +28,10 @@ data class Order(
 	}
 }
 
-class DTOR<O : PO> constructor(tClass: Class<O>, base: String) : DTM<O>(tClass, base) {
+class DTOR<O : PO> constructor(tClass: Class<O>, base: String) : OM<O>(tClass, base) {
 	override fun getO(map: Map<String, Any>): O {
 		val o: Order = super.getO(map) as Order
-		o.user = DBManager.getSingleton().findById(C.dtu, map[C.ID].toString().toInt())
+		o.user = OMer.getSingleton().findById(C.dtu, map[C.ID].toString().toInt())
 		return o as O
 	}
 

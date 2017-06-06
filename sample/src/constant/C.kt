@@ -4,10 +4,10 @@ import dto.DTG
 import dto.DTU
 import dto.Good
 import dto.User
-import org.ldcc.martin.dto.DTGoodType
-import org.ldcc.martin.dto.DTOR
-import org.ldcc.martin.dto.GType
-import org.ldcc.martin.dto.Order
+import dto.DTGoodType
+import dto.DTOR
+import dto.GType
+import dto.Order
 
 object C {
 

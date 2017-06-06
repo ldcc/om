@@ -2,10 +2,9 @@ package dto
 
 import constant.C.DTGT
 import constant.GT
-import org.ldcc.martin.dto.GType
 import org.ldccc.om3.dbm.Aide
-import org.ldccc.om3.dbm.DBManager
-import org.ldccc.om3.dbm.DTM
+import org.ldccc.om3.dbm.OMer
+import org.ldccc.om3.dbm.OM
 import org.ldccc.om3.dto.PO
 import java.sql.Date
 
@@ -31,13 +30,13 @@ data class Good(
 	}
 }
 
-class DTG<O : PO> constructor(tClass: Class<O>, base: String) : DTM<O>(tClass, base) {
+class DTG<O : PO> constructor(tClass: Class<O>, base: String) : OM<O>(tClass, base) {
 	init {
 		columns[9] = "gt_code"
 	}
 	override fun getO(map: Map<String, Any>): O {
 		val o: Good = super.getO(map) as Good
-		o.gType = DBManager.getSingleton().findBy(DTGT, GT.gt_code.name, map[GT.gt_code.name].toString())
+		o.gType = OMer.getSingleton().findBy(DTGT, GT.gt_code.name, map[GT.gt_code.name].toString())
 		return o as O
 	}
 }

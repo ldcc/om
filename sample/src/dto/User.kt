@@ -1,6 +1,6 @@
 package dto
 
-import org.ldccc.om3.dbm.DTM
+import org.ldccc.om3.dbm.OM
 import org.ldccc.om3.dto.PO
 import java.sql.Date
 
@@ -22,7 +22,7 @@ data class User(
 	constructor(name: String, password: String, email: String, phone: String, actCode: String) : this(0, name, password, email, phone, actCode)
 }
 
-class DTU<O : PO> constructor(tClass: Class<O>, base: String) : DTM<O>(tClass, base)
+class DTU<O : PO> constructor(tClass: Class<O>, base: String) : OM<O>(tClass, base)
 
 
 

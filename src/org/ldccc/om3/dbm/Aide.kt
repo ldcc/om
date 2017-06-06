@@ -55,14 +55,6 @@ object Aide {
 		return " SET $cols WHERE ID=${o.id};"
 	}
 
-	fun <O : PO> delStatement(vararg os: O): String {
-		val cond: String = os.map { "ID=" + it.id }.joinToString("||")
-		return " WHERE $cond;"
-	}
-
-	fun `aaaaaa`(a:Int): Nothing {
-		while (true) {}
-	}
-
+	fun <O : PO> delStatement(o: O): String = " WHERE ID = ${o.id};"
 }
 

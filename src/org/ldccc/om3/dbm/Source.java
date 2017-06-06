@@ -8,20 +8,20 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Properties;
 
-class DBSource {
+class Source {
 	private String url;
 	private String username;
 	private String password;
 	private int poolMax;
 	private List<Connection> connectionPool;
 
-	private static DBSource singleton = new DBSource();
+	private static Source singleton = new Source();
 
-	static DBSource getSingleton() {
+	static Source getSingleton() {
 		return singleton;
 	}
 
-	private DBSource() {
+	private Source() {
 		Properties properties = new Properties();
 		try {
 			properties.load(this.getClass().getClassLoader().getResourceAsStream("jdbc.properties"));
