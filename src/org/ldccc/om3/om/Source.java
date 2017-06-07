@@ -1,4 +1,4 @@
-package org.ldccc.om3.dbm;
+package org.ldccc.om3.om;
 
 import java.io.IOException;
 import java.sql.Connection;
