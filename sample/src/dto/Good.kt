@@ -5,13 +5,12 @@ import GT
 import org.ldccc.om3.dto.PO
 import org.ldccc.om3.om.Aide
 import org.ldccc.om3.om.DML
-import org.ldccc.om3.om.OM
 import java.sql.Date
 
-data class Good(override var id: Int, var gTitle: String? = null, var gBrand: String? = null, var gPrice: Double? = null, var gFavorablePrice: Double? = null, var gStorage: Int? = null, var gImage: String? = null, var gDescription: String? = null, var gGroundingDate: Date? = null, var gType: GType? = GType()) : PO(id) {
+data class Good(override var id: Int?, var gTitle: String? = null, var gBrand: String? = null, var gPrice: Double? = null, var gFavorablePrice: Double? = null, var gStorage: Int? = null, var gImage: String? = null, var gDescription: String? = null, var gGroundingDate: Date? = null, var gType: GType? = GType()) : PO(id) {
 	constructor() : this(0)
 
-	override fun <O : PO> boxing(o: O): Any {
+	override fun <O : PO> boxing(o: O): String {
 		return when (o) {
 			is GType -> Aide.sign(o.gtCode as String)
 			else -> "null"
@@ -19,7 +18,7 @@ data class Good(override var id: Int, var gTitle: String? = null, var gBrand: St
 	}
 }
 
-class DTG<O : PO> constructor(tClass: Class<O>, base: String) : OM<O>(tClass, base) {
+class DTG<O : PO> constructor(tClass: Class<O>, base: String) : DML<O>(tClass, base) {
 	init {
 		columns[9] = "gt_code"
 	}
