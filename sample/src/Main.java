@@ -1,52 +1,69 @@
-import constant.C;
 import dto.DTU;
 import dto.User;
-import org.ldccc.om3.om.DML;
+import kotlin.Unit;
+
+import java.util.List;
 
 public class Main {
-  /**
-   * Sample
-   */
-  public static void main(String[] args) {
-    getSingle();
+	/**
+	 * Sample
+	 */
+	public static void main(String[] args) {
+		getSingle();
+		getAll();
+		select();
+		insert();
+		update();
+		delete();
+	}
 
+	private static DTU<User> dtu = C.INSTANCE.getUom();
 
-  }
+	/**
+	 * find single
+	 */
+	private static void getSingle() {
+		User user = dtu.selectSingle(u -> {
+			u.setId(4);
+			return Unit.INSTANCE;
+		});
+		System.out.println(user);
+	}
 
-  /**
-   * findById single
-   */
-  private static void getSingle() {
-    DTU<User> dtu = C.INSTANCE.getDtu();
-    User user = DML.INSTANCE.selectSingle(dtu, u -> {
-      u.setId(4);
-      return u;
-    });
-    System.out.println(user);
-  }
+	/**
+	 * find All
+	 */
+	private static void getAll() {
+		List<User> users = dtu.selectAll().orderBy().execute();
+		System.out.println(users);
+	}
 
-  /**
-   * findById All
-   */
-  private static void getAll() {
+	/**
+	 * select
+	 */
+	private static void select() {
+		dtu.select(select -> select.regexp("u_name", "a"))
+				;
+	}
 
-  }
+	/**
+	 * insert
+	 */
+	private static void insert() {
 
-  /**
-   * add
-   */
-  private static void add() {
-  }
+	}
 
-  /**
-   * update
-   */
-  private static void update() {
-  }
+	/**
+	 * update
+	 */
+	private static void update() {
 
-  /**
-   * delete
-   */
-  private static void delete() {
-  }
+	}
+
+	/**
+	 * delete
+	 */
+	private static void delete() {
+
+	}
 }

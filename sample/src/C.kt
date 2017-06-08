@@ -1,5 +1,3 @@
-package constant
-
 import dto.*
 
 object C {
@@ -10,10 +8,10 @@ object C {
 	val ORDER_BASE = ".e_order"
 	val GOOD_TYPE_BASE = ".e_good_type"
 
-	val dtu: DTU<User> = DTU(User::class.java, USER_BASE)
-	val dtg: DTG<Good> = DTG(Good::class.java, GOOD_BASE)
-	val dtor: DTOR<Order> = DTOR(Order::class.java, ORDER_BASE)
-	val dtgt: DTGoodType<GType> = DTGoodType(GType::class.java, GOOD_TYPE_BASE)
+	val uom: DTU<User> = DTU(User::class.java, USER_BASE)
+	val gom: DTG<Good> = DTG(Good::class.java, GOOD_BASE)
+	val oom: DTOR<Order> = DTOR(Order::class.java, ORDER_BASE)
+	val gtom: DTGoodType<GType> = DTGoodType(GType::class.java, GOOD_TYPE_BASE)
 
 }
 
