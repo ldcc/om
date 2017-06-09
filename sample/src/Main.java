@@ -1,6 +1,6 @@
 import dto.User;
 import kotlin.Unit;
-import org.ldccc.om3.om.DML;
+import org.ldccc.om.core.DML;
 
 import java.util.List;
 

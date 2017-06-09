@@ -1,4 +1,4 @@
-package org.ldccc.om3.dto
+package org.ldccc.om.dto
 
 open class PO(open var id: Int?) {
 	constructor() : this(null)
