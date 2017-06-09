@@ -1,6 +1,6 @@
-import dto.DTU;
 import dto.User;
 import kotlin.Unit;
+import org.ldccc.om3.om.DML;
 
 import java.util.List;
 
@@ -17,13 +17,14 @@ public class Main {
     delete();
   }
 
-  private static DTU<User> dtu = C.INSTANCE.getUom();
+  private static final String USER_BASE = ".e_user";
+  private static DML<User> uom = new DML<>(User.class,USER_BASE);
 
   /**
    * find single
    */
   private static void getSingle() {
-    User user = dtu.selectSingle(u -> {
+    User user = uom.selectSingle(u -> {
       u.setId(4);
       return Unit.INSTANCE;
     });
@@ -34,7 +35,7 @@ public class Main {
    * find All
    */
   private static void getAll() {
-    List<User> users = dtu.selectAll().execute();
+    List<User> users = uom.selectAll().execute();
     users.forEach(System.out::println);
   }
 
@@ -42,7 +43,7 @@ public class Main {
    * select
    */
   private static void select() {
-    List<User> users = dtu.select(select -> select.regexp("u_name", "a"))
+    List<User> users = uom.select(select -> select.regexp("u_name", "a"))
         .orderBy("id")
         .limit(2, 0)
         .execute();
@@ -53,7 +54,7 @@ public class Main {
    * insert
    */
   private static void insert() {
-    dtu.insert(user -> {
+    uom.insert(user -> {
       user.setUName("sbc");
       user.setUPassword("Aa0000");
       return Unit.INSTANCE;
@@ -64,7 +65,7 @@ public class Main {
    * update
    */
   private static void update() {
-    dtu.update(user -> {
+    uom.update(user -> {
       user.setId(6);
       user.setUProvince("奥地利");
       user.setUPassword("Aa1111");
@@ -76,7 +77,7 @@ public class Main {
    * delete
    */
   private static void delete() {
-    dtu.delete(user -> {
+    uom.delete(user -> {
       user.setId(8);
       return Unit.INSTANCE;
     });

@@ -6,7 +6,7 @@ import java.sql.*
 import java.sql.Date
 import java.util.*
 
-open class DML<O : PO> protected constructor(val clazz: Class<O>, val base: String) {
+open class DML<O : PO> constructor(val clazz: Class<O>, val base: String) {
   val fields: Array<Field> = clazz.declaredFields
   var columns: Array<String>
   
