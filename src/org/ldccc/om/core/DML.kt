@@ -127,7 +127,6 @@ open class DML<O : PO> constructor(val clazz: Class<O>, val base: String) {
 
 	inline fun select(from: String, where: SQL.() -> StringBuilder): List<O> {
 		val sql = SQL("SELECT ${columns.joinToString()} FROM $from ").apply { sql.append(where(this)) }.sql.toString()
-		columns
 		return select(sql)
 	}
 
