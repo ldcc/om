@@ -1,6 +1,6 @@
 # om
 
-just some sample:
+om for helping people more easily to use database just some sample:
 
 	private val USER_BASE = ".e_user"
 	private val uDml = DML(User::class.java, USER_BASE)
