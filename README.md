@@ -1,6 +1,6 @@
 # om
 
-I'll be show some sample, and it's very simple. If still don't get it, try to suicide and returning yourself, getting new life and leave pl alone.
+just some sample:
 
 	private val USER_BASE = ".e_user"
 	private val uDml = DML(User::class.java, USER_BASE)
