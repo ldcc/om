@@ -28,4 +28,4 @@ private fun update() {
 }
 ```
 
-More example step to https://github.com/ldcc/om/blob/master/sample/src/Main.kt/.
+More sample step to https://github.com/ldcc/om/blob/master/sample/src/Main.kt/.
