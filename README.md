@@ -1,6 +1,6 @@
 # om
 
-A lightweight SQL library written over JDBC driver for Kotlin language. 
+A lightweight SQL library written over JDBC driver for JVM language. 
 
 ```kotlin
 private val USER_BASE = ".e_user"
