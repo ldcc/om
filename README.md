@@ -1,12 +1,12 @@
 # om
 
-om for helping people more easily to use database just some sample:
+A lightweight SQL library written over JDBC driver for Kotlin language. 
 
 	private val USER_BASE = ".e_user"
 	private val uDml = DML(User::class.java, USER_BASE)
 
 	/**
-	 * find single
+	 * find a single by an very simple way
 	 */
 	private fun getSingle() {
 		val user = uDml.selectSingle {
@@ -16,42 +16,7 @@ om for helping people more easily to use database just some sample:
 	}
 
 	/**
-	 * find All
-	 */
-	private fun getAll() {
-		val users = uDml.selectAll().execute()
-		users.forEach(::println)
-	}
-
-	/**
-	 * select
-	 */
-	private fun select1() {
-		val users = uDml.select(USER_BASE) {
-			"u_name" regexp "a" or "u_role" eq true orderBy "id desc" limit 3 offset 1
-		}
-		users.forEach(::println)
-	}
-
-	private fun select2() {
-		val users = uDml
-				.select { uName = "%a%"; uRole = true }
-				.orderBy("id desc", "u_name asc").limit(3).offset(1).execute()
-		users.forEach(::println)
-	}
-
-	/**
-	 * insert
-	 */
-	private fun insert() {
-		uDml.insert {
-			uName = "sbc"
-			uPassword = "Aa0000"
-		}
-	}
-
-	/**
-	 * update
+	 * update via the field as you defined
 	 */
 	private fun update() {
 		uDml.update {
@@ -61,12 +26,4 @@ om for helping people more easily to use database just some sample:
 		}
 	}
 
-	/**
-	 * delete
-	 */
-	private fun delete() {
-		uDml.delete {
-			id = 8
-		}
-	}
-
+More example step to https://github.com/ldcc/om/blob/master/sample/src/Main.kt/.
