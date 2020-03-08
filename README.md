@@ -144,6 +144,9 @@ fun pdelete() {
 }
 ```
 
-Contribution
+## Contribution
 
-https://github.com/ldcc/om/blob/master/src/org/ldcc/om/core/DML.kt.
+You could check out [here][core] to see the detail of some concrete implemention to find more 
+interesting and convenient usage, and it also welcome to your contribute.
+
+[core]: https://github.com/ldcc/om/blob/master/src/org/ldcc/om/core/DML.kt.
