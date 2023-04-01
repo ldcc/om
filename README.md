@@ -6,7 +6,7 @@ A lightweight SQL library written over JDBC driver for JVM language.
 
 ### Object
 
-The very first step that is to defining a DTO database object to inherit the `PO` object: 
+First step is to defined a DTO database object to inherit the `PO` object: 
 
 ```kotlin
 data class Pet(
@@ -23,8 +23,7 @@ data class Pet(
 The field-name and the filed-type of the DTO object must be consis with the column and type of 
 the database_table which your definition in the database.
 
-You could use CamelCase naming convention in your DTO object to compat the database_table which is
-using Snake_Case naming convention:
+Use CamelCase naming in your DTO object to compat the database_table to Snake_Case:
 
 ```kotlin
 data class Pet(
@@ -40,25 +39,20 @@ data class Pet(
 
 ### Event
 
-By using om, the following example would show you using SQL-DML sentence, just as simple as to
-calling a kotlin function.
+The following syntax as similar as using DML sentence.
 
-First you need to create a SQL-DML engine, that is the database_table `.pet` special engine:
+First, create the DML engine for the database_table `.pet`:
 
 ```kotlin
 const val PET_TABLE = ".pet"
 val peng = Engine(Pet::class.java, PET_TABLE)
 ```
 
-Now i gonna keep using the table `pet` in all the following example. \
-
-Inquiry:
+Query:
 
 ```kotlin
 /**
- * inquire all data from `pet` and each row generate as an obejct pet
  * SELECT * FROM .pet;
- * 
  */
 fun pselect1() {
     peng.selectall().execute()
@@ -66,7 +60,6 @@ fun pselect1() {
 }
 
 /**
- * inquire the first row from `pet` that match by the given identity
  * SELECT * FROM .pet WHERE id = 1 LIMIT 1;
  */
 fun pselect2() {
@@ -75,7 +68,6 @@ fun pselect2() {
 }
 
 /**
- * inquire by using a DML-like-DSL syntax which implement by kotlin `infix` function
  * SELECT * FROM .pet WHERE name REGEXP 'i' || sex = 'm' ORDER BY birth asc LIMIT 3 OFFSET 0;
  */
 fun pselect3() {
@@ -84,7 +76,6 @@ fun pselect3() {
 }
 
 /**
- * inquire by a series function calling, this is a stream processing
  * SELECT * FROM .pet WHERE name = '%i%' && sex = 'm' ORDER BY id asc, birth asc LIMIT 3 OFFSET 0;
  */
 fun pselect4() {
@@ -97,11 +88,10 @@ fun pselect4() {
 }
 ```
 
-Insertion:
+Insert:
 
 ```kotlin
 /**
- * insert a DTO object to table `.pet` according by the given DTO object
  * INSERT INTO .pet (name,owner,species,birth)VALUES('Frey','Ldc','giraffe','1997-05-06');
  */
 fun pinsert() {
@@ -114,11 +104,10 @@ fun pinsert() {
 }
 ```
 
-Modification:
+Modify:
 
 ```kotlin
 /**
- * change elements of a DTO object in table `.pet` according by the givien identity
  * UPDATE .pet SET id = 3, name = 'Gray' WHERE ID=3;
  */
 fun pupdate() {
@@ -129,12 +118,10 @@ fun pupdate() {
 }
 ```
 
-
-Deletion:
+Delete:
 
 ```kotlin
-/**\
- * remove a DTO object from table `.pet` according by the given identity 
+/**
  * DELETE FROM .pet WHERE id = 3;
  */
 fun pdelete() {
@@ -146,7 +133,6 @@ fun pdelete() {
 
 ## Contribution
 
-You could check out [here][core] to see the detail of some concrete implemention to find more 
-interesting and convenient usage, and it also welcome to your contribute.
+For more example to check out [here][core].
 
 [core]: https://github.com/ldcc/om/blob/master/src/org/ldcc/om/core/DML.kt.
