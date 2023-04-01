@@ -135,4 +135,4 @@ fun pdelete() {
 
 For more example to check out [here][core].
 
-[core]: https://github.com/ldcc/om/blob/master/src/org/ldcc/om/core/DML.kt.
+[core]: https://github.com/ldcc/om/tree/master/example/src/event.
